@@ -1,0 +1,203 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#f8f9fa",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-surface-variant": "#4d4635",
+                    "inverse-surface": "#2e3132",
+                    "on-secondary-fixed": "#1a1c1e",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e1e3e4",
+                    "secondary-container": "#e2e2e5",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#aeb4b2",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#404644",
+                    "inverse-primary": "#e9c349",
+                    "tertiary-fixed-dim": "#c2c8c5",
+                    "primary-fixed": "#ffe088",
+                    "on-background": "#191c1d",
+                    "secondary": "#5d5e61",
+                    "on-tertiary": "#ffffff",
+                    "surface-tint": "#735c00",
+                    "on-tertiary-fixed": "#171d1b",
+                    "on-primary-fixed": "#241a00",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-container": "#636467",
+                    "surface-container-high": "#e7e8e9",
+                    "outline-variant": "#d0c5af",
+                    "secondary-fixed-dim": "#c6c6c9",
+                    "surface": "#f8f9fa",
+                    "primary-fixed-dim": "#e9c349",
+                    "outline": "#7f7663",
+                    "on-primary-container": "#554300",
+                    "surface-container": "#edeeef",
+                    "primary-container": "#d4af37",
+                    "surface-container-low": "#f3f4f5",
+                    "on-surface": "#191c1d",
+                    "error-container": "#ffdad6",
+                    "on-error-container": "#93000a",
+                    "tertiary": "#5a605e",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-primary-fixed-variant": "#574500",
+                    "surface-dim": "#d9dadb",
+                    "primary": "#735c00",
+                    "tertiary-fixed": "#dee4e1",
+                    "secondary-fixed": "#e2e2e5",
+                    "on-tertiary-fixed-variant": "#424846",
+                    "on-secondary": "#ffffff",
+                    "surface-bright": "#f8f9fa",
+                    "on-secondary-fixed-variant": "#454749"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "xl": "32px",
+                    "sm": "8px",
+                    "gutter": "20px",
+                    "xs": "4px",
+                    "lg": "24px",
+                    "sidebar-width": "260px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "title-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "data-mono": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script></head><body class="bg-inverse-surface min-h-screen flex flex-col items-center justify-center p-gutter">
+
+    <!-- Subtle Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none opacity-20">
+        <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary opacity-20 blur-[120px] rounded-full"></div>
+        <div class="absolute -bottom-[10%] -right-[10%] w-[30%] h-[30%] bg-primary opacity-10 blur-[100px] rounded-full"></div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="relative w-full max-w-md z-10">
+        
+        <!-- Login Card -->
+        <div class="bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-xl aurum-glow">
+            
+            <!-- Logo Section -->
+            <div class="flex flex-col items-center mb-xl">
+                <div class="w-12 h-12 bg-primary-container flex items-center justify-center rounded-lg mb-md">
+                    <span class="material-symbols-outlined text-on-primary-container text-[28px]" style="font-variation-settings: &quot;FILL&quot; 1;">diamond</span>
+                </div>
+                <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">Jstock</h1>
+                <p class="font-body-sm text-body-sm text-secondary mt-1">Gold Inventory Management</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-lg">
+                <!-- User ID Field -->
+                <div class="space-y-xs">
+                    <label for="user_id" class="block font-label-md text-label-md text-secondary uppercase tracking-widest">User ID</label>
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-md group-focus-within:text-primary transition-colors">account_circle</span>
+                        <input type="text" id="user_id" name="user_id" placeholder="Enter your system ID" class="w-full bg-surface-container border border-outline-variant rounded-lg py-3 pl-11 pr-md font-body-md text-body-md text-on-surface input-focus-gold transition-all placeholder:text-secondary-fixed-dim" required="">
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="space-y-xs">
+                    <div class="flex justify-between items-center">
+                        <label for="password" class="block font-label-md text-label-md text-secondary uppercase tracking-widest">Password</label>
+                        <a href="#" class="font-label-md text-label-md text-primary hover:underline transition-all">Forgot?</a>
+                    </div>
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-md group-focus-within:text-primary transition-colors">lock</span>
+                        <input type="password" id="password" name="password" placeholder="••••••••" class="w-full bg-surface-container border border-outline-variant rounded-lg py-3 pl-11 pr-md font-body-md text-body-md text-on-surface input-focus-gold transition-all placeholder:text-secondary-fixed-dim" required="">
+                    </div>
+                </div>
+
+                <!-- Security Check (Simulated) -->
+                <div class="flex items-center space-x-sm py-xs">
+                    <input type="checkbox" id="remember" class="w-4 h-4 rounded-sm border-outline-variant text-primary focus:ring-primary">
+                    <label for="remember" class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer">Trust this device for 30 days</label>
+                </div>
+
+                <!-- Action Button -->
+                <button type="submit" class="w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-4 rounded-lg uppercase tracking-widest font-bold flex items-center justify-center space-x-sm hover:brightness-110 active:scale-[0.98] transition-all duration-150">
+                    <span class="">Login&nbsp;<br></span>
+                    <span class="material-symbols-outlined text-md">login</span>
+                </button>
+            </form>
+
+            <!-- Registration Link -->
+            <div class="mt-xl pt-lg border-t border-outline-variant/30 text-center">
+                <p class="font-body-sm text-body-sm text-secondary">
+                    New operator? 
+                    <a href="#" class="text-primary font-bold hover:underline transition-all ml-1">Apply for Register</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- System Footer Info -->
+        <div class="mt-lg flex justify-between items-center px-sm">
+            <div class="flex items-center space-x-sm text-secondary-fixed-dim">
+                <span class="material-symbols-outlined text-sm">security</span>
+                <span class="font-label-md text-label-md">256-bit Encrypted</span>
+            </div>
+            <div class="flex space-x-md text-secondary-fixed-dim font-label-md text-label-md">
+                <a href="#" class="hover:text-primary transition-colors">Privacy</a>
+                <a href="#" class="hover:text-primary transition-colors">Support</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Visual Polish: Decorative Geometric Background -->
+    <div class="fixed bottom-0 left-0 p-lg hidden lg:block">
+        <div class="flex items-center space-x-md">
+            <div class="w-12 h-[1px] bg-outline-variant/40"></div>
+            <span class="font-data-mono text-[10px] text-secondary-fixed-dim uppercase tracking-tighter opacity-50">Authorized Personnel Only • IP Logged</span>
+        </div>
+    </div>
+
+    <!-- Small-->
+    <script class="">
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span><span>Authorizing...</span>';
+            
+            // Artificial delay for "Security UX"
+            setTimeout(() => {
+                btn.classList.add('bg-green-600', 'text-white');
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span><span>Access Granted</span>';
+                
+                setTimeout(() => {
+                    // Redirect simulation
+                    console.log('Login successful. Redirecting to Dashboard...');
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                    btn.classList.remove('</script></body></html>

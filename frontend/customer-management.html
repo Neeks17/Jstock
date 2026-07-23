@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer Management | Jstock</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-surface": "#191c1d",
+                      "tertiary": "#5a605e",
+                      "secondary-fixed-dim": "#c6c6c9",
+                      "secondary-fixed": "#e2e2e5",
+                      "on-secondary-fixed": "#1a1c1e",
+                      "inverse-on-surface": "#f0f1f2",
+                      "secondary-container": "#e2e2e5",
+                      "on-primary": "#ffffff",
+                      "on-tertiary-fixed-variant": "#424846",
+                      "inverse-surface": "#2e3132",
+                      "surface-container-lowest": "#ffffff",
+                      "primary": "#735c00",
+                      "surface": "#f8f9fa",
+                      "on-tertiary-container": "#404644",
+                      "on-error-container": "#93000a",
+                      "on-surface-variant": "#4d4635",
+                      "on-background": "#191c1d",
+                      "surface-container-high": "#e7e8e9",
+                      "tertiary-container": "#aeb4b2",
+                      "tertiary-fixed": "#dee4e1",
+                      "surface-container-low": "#f3f4f5",
+                      "on-secondary-container": "#636467",
+                      "surface-container-highest": "#e1e3e4",
+                      "primary-fixed": "#ffe088",
+                      "on-secondary": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-container": "#554300",
+                      "background": "#f8f9fa",
+                      "on-tertiary-fixed": "#171d1b",
+                      "surface-dim": "#d9dadb",
+                      "error-container": "#ffdad6",
+                      "secondary": "#5d5e61",
+                      "primary-container": "#d4af37",
+                      "outline": "#7f7663",
+                      "on-primary-fixed": "#241a00",
+                      "tertiary-fixed-dim": "#c2c8c5",
+                      "surface-bright": "#f8f9fa",
+                      "inverse-primary": "#e9c349",
+                      "surface-variant": "#e1e3e4",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed-variant": "#454749",
+                      "surface-tint": "#735c00",
+                      "on-primary-fixed-variant": "#574500",
+                      "surface-container": "#edeeef",
+                      "error": "#ba1a1a",
+                      "primary-fixed-dim": "#e9c349",
+                      "outline-variant": "#d0c5af"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xl": "32px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "xs": "4px",
+                      "lg": "24px",
+                      "sidebar-width": "260px",
+                      "base": "4px",
+                      "gutter": "20px"
+              },
+              "fontFamily": {
+                      "data-mono": ["Inter"],
+                      "label-md": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "title-lg": ["Inter"],
+                      "body-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .table-row-hover:hover {
+            background-color: #FFFBEB;
+        }
+        .sidebar-active {
+            border-left: 4px solid #d4af37;
+            background-color: rgba(226, 226, 229, 0.1);
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full w-sidebar-width bg-on-surface border-r border-outline-variant flex flex-col py-lg z-50">
+<div class="px-md mb-xl">
+<h1 class="font-display-lg text-display-lg font-bold text-primary-container">Jstock</h1>
+<p class="font-body-sm text-body-sm text-secondary-fixed-dim opacity-70">Inventory Mgmt</p>
+</div>
+<nav class="flex-1 space-y-xs overflow-y-auto">
+<!-- Dashboard -->
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/20 hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<!-- Ornaments -->
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/20 hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">diamond</span>
+<span class="font-label-md text-label-md">Ornaments</span>
+</a>
+<!-- Task -->
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/20 hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Task</span>
+</a>
+<!-- Order -->
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/20 hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Order</span>
+</a>
+<!-- Customers (ACTIVE) -->
+<a class="flex items-center gap-md px-md py-sm text-primary-container border-l-4 border-primary-container bg-on-secondary-fixed-variant/10 opacity-90 transition-opacity duration-150" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<!-- Request -->
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/20 hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">send</span>
+<span class="font-label-md text-label-md">Request</span>
+</a>
+<!-- Status -->
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant/20 hover:text-primary-fixed transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Status</span>
+</a>
+</nav>
+<div class="mt-auto px-md space-y-sm">
+<button class="w-full bg-primary-container text-on-primary-container py-sm font-label-md text-label-md rounded-lg hover:opacity-90 transition-opacity">
+                New Entry
+            </button>
+<div class="pt-md border-t border-outline-variant/30">
+<a class="flex items-center gap-md px-md py-xs text-secondary-fixed-dim hover:text-primary-fixed" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+<a class="flex items-center gap-md px-md py-xs text-secondary-fixed-dim hover:text-primary-fixed" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Wrapper -->
+<div class="ml-sidebar-width flex flex-col min-h-screen">
+<!-- TopNavBar Shell -->
+<header class="sticky top-0 right-0 w-full z-40 bg-surface border-b border-outline-variant flex justify-between items-center h-16 px-lg">
+<div class="flex items-center gap-xl flex-1">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Jstock</h2>
+<div class="relative w-full max-w-md group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant focus:ring-2 focus:ring-primary-container/30 focus:border-primary-container outline-none text-body-sm transition-all" placeholder="Search customers by name or ID..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 text-secondary hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-secondary hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="flex items-center gap-sm pl-md border-l border-outline-variant">
+<div class="text-right hidden sm:block">
+<p class="font-label-md text-label-md text-on-surface">Alex Manager</p>
+<p class="text-[10px] text-secondary">Store Head</p>
+</div>
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a mature business manager in a crisp white shirt, photographed with soft cinematic studio lighting against a clean, neutral architectural background. The image has a high-key, professional corporate aesthetic with warm, subtle gold undertones to match the luxury brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA9fFcMfFGmm--U2YsrZUKq3ewCyTCQ0THqUsquou3dZo1uhCs5nKTlej1gvf9KCo2iBT-wx4J5HwFexSYDzEjrEhvtxke4ALVYjvD7ReJY0p7vHTwj3DnBumKogrxko-zMdyQxwQ_dT990eL17UTTiL1ii8AxE1VDVCGJg2buY5rDDPkNHtBsJeIhmOEUB-5-iRFiOCtYEHiAX-LzuSgX4IA5w4-CYsq9JrkbXt3unUDUDowMo7xwinFcTI5vSUpisZ5lxdx_R5KU"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="p-lg flex-1">
+<!-- Summary Header -->
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Customer Directory</h1>
+<p class="font-body-md text-body-md text-secondary">Manage your elite client relationships and financial standings.</p>
+</div>
+<button class="bg-primary-container text-on-primary-container px-lg py-sm font-label-md text-label-md rounded-lg flex items-center gap-sm hover:opacity-90 transition-all shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600">add</span>
+                    New Customer
+                </button>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-xl">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg flex flex-col">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-sm">Total Customers</span>
+<div class="flex items-baseline gap-sm">
+<span class="font-display-lg text-display-lg text-on-surface">1,248</span>
+<span class="text-green-600 font-label-md text-label-md flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 12%
+                        </span>
+</div>
+<div class="mt-md w-full bg-surface-container h-1">
+<div class="bg-primary-container h-1 w-[70%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg flex flex-col">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-sm">Outstanding Credit</span>
+<div class="flex items-baseline gap-sm">
+<span class="font-display-lg text-display-lg text-on-surface">$42,850.00</span>
+<span class="text-error font-label-md text-label-md flex items-center">
+<span class="material-symbols-outlined text-[14px]">warning</span> 5 Urgent
+                        </span>
+</div>
+<div class="mt-md w-full bg-surface-container h-1">
+<div class="bg-error h-1 w-[35%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg flex flex-col">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-sm">Total Revenue</span>
+<div class="flex items-baseline gap-sm">
+<span class="font-display-lg text-display-lg text-on-surface">$892,104.50</span>
+<span class="text-green-600 font-label-md text-label-md flex items-center">
+<span class="material-symbols-outlined text-[14px]">verified</span> This Year
+                        </span>
+</div>
+<div class="mt-md w-full bg-surface-container h-1">
+<div class="bg-green-600 h-1 w-[85%]"></div>
+</div>
+</div>
+</div>
+<!-- Customer Table -->
+<div class="bg-surface-container-lowest border border-outline-variant overflow-hidden">
+<div class="px-lg py-md bg-surface-container-low border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Client List</h3>
+<div class="flex gap-sm">
+<button class="px-md py-sm bg-white border border-outline-variant text-secondary font-label-md text-label-md flex items-center gap-xs hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filter
+                        </button>
+<button class="px-md py-sm bg-white border border-outline-variant text-secondary font-label-md text-label-md flex items-center gap-xs hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined text-[18px]">file_download</span> Export
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-lg py-md font-label-md text-label-md text-secondary">Customer Name</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary">Contact Information</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary text-center">Orders</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary text-right">Credit Balance</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary text-right">Debit Balance</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary text-center">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/30">
+<!-- Row 1 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-primary-container/20 text-primary-container font-bold flex items-center justify-center rounded-full">JB</div>
+<div>
+<p class="font-title-lg text-body-md font-semibold text-on-surface">Julianne Burke</p>
+<p class="text-[10px] text-secondary">ID: JS-8842</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="space-y-xs">
+<p class="font-body-sm text-body-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">mail</span> j.burke@example.com
+                                        </p>
+<p class="font-body-sm text-body-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">phone</span> +1 555 012 3456
+                                        </p>
+</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="bg-surface-container-highest px-3 py-1 rounded-full font-label-md text-label-md text-on-surface">24</span>
+</td>
+<td class="px-lg py-md text-right font-data-mono text-data-mono text-error">-$1,250.00</td>
+<td class="px-lg py-md text-right font-data-mono text-data-mono text-green-600">$0.00</td>
+<td class="px-lg py-md text-center">
+<button class="text-primary-container font-label-md text-label-md hover:underline">View Details</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-secondary-container/50 text-secondary font-bold flex items-center justify-center rounded-full">MS</div>
+<div>
+<p class="font-title-lg text-body-md font-semibold text-on-surface">Marcus Sterling</p>
+<p class="text-[10px] text-secondary">ID: JS-2109</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="space-y-xs">
+<p class="font-body-sm text-body-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">mail</span> sterling.m@web.com
+                                        </p>
+<p class="font-body-sm text-body-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">phone</span> +1 555 998 7765
+                                        </p>
+</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="bg-surface-container-highest px-3 py-1 rounded-full font-label-md text-label-md text-on-surface">8</span>
+</td>
+<td class="px-lg py-md text-right font-data-mono text-data-mono text-secondary-fixed-dim">$0.00</td>
+<td class="px-lg py-md text-right font-data-mono text-data-mono text-green-600">$4,500.00</td>
+<td class="px-lg py-md text-center">
+<button class="text-primary-container font-label-md text-label-md hover:underline">View Details</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-primary-container/20 text-primary-container font-bold flex items-center justify-center rounded-full">EO</div>
+<div>
+<p class="font-title-lg text-body-md font-semibold text-on-surface">Elena Ortega</p>
+<p class="text-[10px] text-secondary">ID: JS-4512</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="space-y-xs">
+<p class="font-body-sm text-body-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">mail</span> e.ortega@design.io
+                                        </p>
+<p class="font-body-sm text-body-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">phone</span> +1 555 234 5678
+                                        </p>
+</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="bg-surface-container-highest px-3 py-1 rounded-full font-label-md text-label-md text-on-surface">112</span>
+</td>
+<td class="px-lg py-md text-right font-data-mono text-data-mono text-error">-$12,400.00</td>
+<td class="px-lg py-md text-right font-data-mono text-data-mono text-secondary-fixed-dim">$0.00</td>
+<td class="px-lg py-md text-center">
+<button class="text-primary-container font-label-md text-label-md hover:underline">View Details</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="table-row-hover transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-secondary-container/50 text-secondary font-bold flex items-center justify-center rounded-full">DK</div>
+<div>
+<p class="font-title-lg text-body-md font-semibold text-on-surface">David Kim</p>
+<p class="text-[10px] text-secondary">ID: JS-1288</p>
+</div>
+</div>
+</td>
+<td class="px-lg py-md">
+<div class="space-y-xs">
+<p class="font-body-sm text-body-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">mail</span> d.kim@logistics.com
+                                        </p>
+<p class="font-body-sm text-body-sm text-on-surface flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-secondary">phone</span> +1 555 443 2211
+                                        </p>
+</div>
+</td>
+<td class="px-lg py-md text-center">
+<span class="bg-surface-container-highest px-3 py-1 rounded-full font-label-md text-label-md text-on-surface">56</span>
+</td>
+<td class="px-lg py-md text-right font-data-mono text-data-mono text-secondary-fixed-dim">$0.00</td>
+<td class="px-lg py-md text-right font-data-mono text-data-mono text-green-600">$850.00</td>
+<td class="px-lg py-md text-center">
+<button class="text-primary-container font-label-md text-label-md hover:underline">View Details</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-lg py-md bg-surface-container-low border-t border-outline-variant flex justify-between items-center">
+<p class="font-body-sm text-body-sm text-secondary">Showing 1 to 4 of 1,248 customers</p>
+<div class="flex gap-xs">
+<button class="p-2 border border-outline-variant bg-white disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-primary-container text-on-primary-container font-label-md text-label-md">1</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container font-label-md text-label-md">2</button>
+<button class="w-8 h-8 flex items-center justify-center hover:bg-surface-container font-label-md text-label-md">3</button>
+<button class="p-2 border border-outline-variant bg-white hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="mt-auto px-lg py-md border-t border-outline-variant/30 flex justify-between items-center text-secondary">
+<p class="text-[12px]">© 2024 Jstock Inventory Systems. All rights reserved.</p>
+<div class="flex gap-md">
+<a class="text-[12px] hover:text-primary-container transition-colors" href="#">Privacy Policy</a>
+<a class="text-[12px] hover:text-primary-container transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</div>
+<!-- Micro-interaction Script -->
+<script>
+        // Simple search feedback
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('input', (e) => {
+            if(e.target.value.length > 0) {
+                searchInput.classList.add('border-primary-container');
+            } else {
+                searchInput.classList.remove('border-primary-container');
+            }
+        });
+
+        // Button Ripple Effect simulation
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', function() {
+                this.style.transform = 'scale(0.98)';
+                this.style.transition = 'transform 0.1s';
+            });
+            button.addEventListener('mouseup', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html><html lang="en" class="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "tertiary": "#5a605e",
+                      "on-tertiary-fixed-variant": "#424846",
+                      "primary-fixed": "#ffe088",
+                      "outline-variant": "#d0c5af",
+                      "outline": "#7f7663",
+                      "tertiary-fixed-dim": "#c2c8c5",
+                      "inverse-primary": "#e9c349",
+                      "surface-variant": "#e1e3e4",
+                      "surface-container": "#edeeef",
+                      "primary-fixed-dim": "#e9c349",
+                      "on-primary-container": "#554300",
+                      "on-surface": "#191c1d",
+                      "secondary-fixed-dim": "#c6c6c9",
+                      "primary": "#735c00",
+                      "secondary": "#5d5e61",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-container": "#e2e2e5",
+                      "on-secondary-fixed": "#1a1c1e",
+                      "tertiary-fixed": "#dee4e1",
+                      "surface-dim": "#d9dadb",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-secondary": "#ffffff",
+                      "inverse-surface": "#2e3132",
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-background": "#191c1d",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f3f4f5",
+                      "surface-bright": "#f8f9fa",
+                      "surface-tint": "#735c00",
+                      "on-surface-variant": "#4d4635",
+                      "surface": "#f8f9fa",
+                      "on-primary": "#ffffff",
+                      "on-primary-fixed": "#241a00",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-container": "#636467",
+                      "tertiary-container": "#aeb4b2",
+                      "secondary-fixed": "#e2e2e5",
+                      "surface-container-high": "#e7e8e9",
+                      "primary-container": "#d4af37",
+                      "on-error-container": "#93000a",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed-variant": "#574500",
+                      "on-tertiary-container": "#404644",
+                      "background": "#f8f9fa",
+                      "on-secondary-fixed-variant": "#454749",
+                      "on-tertiary-fixed": "#171d1b",
+                      "error": "#ba1a1a"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "xs": "4px",
+                      "lg": "24px",
+                      "sm": "8px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "gutter": "20px",
+                      "sidebar-width": "260px",
+                      "base": "4px"
+              },
+              "fontFamily": {
+                      "title-lg": ["Inter"],
+                      "label-md": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "data-mono": ["Inter"],
+                      "headline-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="bg-background text-on-background overflow-x-hidden">
+<!-- SideNavBar (Authority: SideNavBar Shared Component) -->
+<aside class="w-sidebar-width h-full fixed left-0 top-0 z-50 bg-inverse-surface dark:bg-on-secondary-fixed flex flex-col border-r border-outline-variant dark:border-outline">
+<div class="p-lg">
+<h1 class="font-headline-sm text-headline-sm text-primary-fixed-dim tracking-tight">Gold Vault</h1>
+<p class="font-label-md text-label-md text-on-surface-variant opacity-70">Inventory Control</p>
+</div>
+<nav class="flex-1 mt-md">
+<!-- Navigation Items Mapping -->
+<a href="#" class="flex items-center gap-md py-md px-lg text-on-surface-variant hover:bg-on-secondary-fixed-variant hover:text-primary-fixed transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a href="#" class="flex items-center gap-md py-md px-lg text-on-surface-variant hover:bg-on-secondary-fixed-variant hover:text-primary-fixed transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined">diamond</span>
+<span class="font-label-md text-label-md">Ornaments</span>
+</a>
+<a href="#" class="flex items-center gap-md py-md px-lg text-on-surface-variant hover:bg-on-secondary-fixed-variant hover:text-primary-fixed transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Task</span>
+</a>
+<!-- Active State: Order -->
+<a href="#" class="flex items-center gap-md py-md px-lg text-primary-fixed-dim border-l-4 border-primary-fixed bg-on-secondary-fixed-variant">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Order</span>
+</a>
+<a href="#" class="flex items-center gap-md py-md px-lg text-on-surface-variant hover:bg-on-secondary-fixed-variant hover:text-primary-fixed transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a href="#" class="flex items-center gap-md py-md px-lg text-on-surface-variant hover:bg-on-secondary-fixed-variant hover:text-primary-fixed transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined">message</span>
+<span class="font-label-md text-label-md">Request</span>
+</a>
+<a href="#" class="flex items-center gap-md py-md px-lg text-on-surface-variant hover:bg-on-secondary-fixed-variant hover:text-primary-fixed transition-all duration-200 ease-in-out">
+<span class="material-symbols-outlined">rule</span>
+<span class="font-label-md text-label-md">Status</span>
+</a>
+</nav>
+<div class="px-lg py-md">
+<button class="w-full py-md bg-primary-container text-on-primary-container font-label-md text-label-md rounded-lg hover:opacity-90 transition-opacity">
+                New Entry
+            </button>
+</div>
+<div class="border-t border-outline-variant/20 py-md">
+<a href="#" class="flex items-center gap-md py-md px-lg text-on-surface-variant hover:text-primary-fixed transition-all">
+<span class="material-symbols-outlined">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a href="#" class="flex items-center gap-md py-md px-lg text-on-surface-variant hover:text-primary-fixed transition-all">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Sign Out</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Shell -->
+<main class="ml-sidebar-width min-h-screen flex flex-col">
+<!-- TopNavBar (Authority: TopNavBar Shared Component) -->
+<header class="sticky top-0 z-40 w-full h-16 flex items-center justify-between px-lg bg-surface dark:bg-on-surface border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-md">
+<span class="font-headline-md text-headline-md text-primary font-bold">AuraGold Inventory</span>
+<div class="h-8 w-[1px] bg-outline-variant mx-sm"></div>
+<h2 class="font-title-lg text-title-lg text-on-surface">Order Management</h2>
+</div>
+<div class="flex items-center gap-lg">
+<div class="relative group">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline">search</span>
+<input type="text" placeholder="Global search..." class="pl-10 pr-4 py-1.5 bg-surface-container rounded-full border-none focus:ring-2 focus:ring-primary-container text-body-sm transition-all w-64 focus:w-80">
+</div>
+<div class="flex items-center gap-md text-on-surface-variant">
+<button class="material-symbols-outlined hover:text-primary transition-colors cursor-pointer">notifications</button>
+<button class="material-symbols-outlined hover:text-primary transition-colors cursor-pointer">account_balance_wallet</button>
+<button class="material-symbols-outlined hover:text-primary transition-colors cursor-pointer">settings</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ml-sm">
+<img class="w-full h-full object-cover" data-alt="Close-up professional portrait of a business administrator in a high-end office setting, wearing a tailored charcoal suit. The lighting is crisp and bright, reflecting a professional light-mode aesthetic with golden accents in the background. The mood is authoritative and efficient, perfectly capturing the luxury inventory management theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWIMGKekjjEVXX_p92Zg3a6GTQot4q9m96vWGS0Egf28smOdvzi4HYyu7OUIolJZRIBBzWL7b3jsfQOr9LnYgTU40RGKhgF3O12pfDUGuse95CHggVA0YbfKIMd1tIRmdceSwLIvE8QH3SnuWFsHEys_i8Mcdc2kC4YwmbxfsVQ7Sbo0pSMpQHhYQhFaMJxI4ScgnvdKRrmRYiMT9vCA1Ji9Kdqi-CEp3T9nbi-7Qcjcgcx65Y5XyaGupvhIeCLoqsDz0Ypxek3qge">
+</div>
+</div>
+</div>
+</header>
+<!-- Canvas Content -->
+<div class="p-lg flex flex-col gap-lg">
+<!-- Section 1: New Order Entry -->
+<section class="grid grid-cols-12 gap-lg">
+<div class="col-span-12 lg:col-span-5">
+<div class="bg-surface-container-lowest p-xl rounded-xl border border-outline-variant shadow-sm h-full">
+<div class="flex items-center gap-sm mb-lg">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">add_circle</span>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Place New Order</h3>
+</div>
+<form class="space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Category</label>
+<select class="w-full bg-surface border border-outline-variant rounded p-sm text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all">
+<option>Gold</option>
+<option>Diamond</option>
+<option>Silver</option>
+<option>Platinum</option>
+</select>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Type</label>
+<input class="w-full bg-surface border border-outline-variant rounded p-sm text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all" placeholder="e.g. Necklace" type="text">
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Weight (Grams)</label>
+<div class="relative">
+<input class="w-full bg-surface border border-outline-variant rounded p-sm text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all pr-12" placeholder="0.00" step="0.01" type="number">
+<span class="absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-label-md uppercase">gm</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Purity/Karat</label>
+<select class="w-full bg-surface border border-outline-variant rounded p-sm text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all">
+<option>24K</option>
+<option>22K</option>
+<option>18K</option>
+<option>999 Gold</option>
+</select>
+</div>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Customer Name</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline-variant">person</span>
+<input class="w-full bg-surface border border-outline-variant rounded p-sm pl-10 text-body-md focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-all" placeholder="Enter customer name" type="text">
+</div>
+</div>
+<div class="pt-md">
+<button class="w-full bg-primary-container text-on-primary-container font-headline-sm text-headline-sm py-md rounded-lg shadow-sm hover:brightness-105 active:scale-[0.98] transition-all flex items-center justify-center gap-sm" type="submit">
+<span class="material-symbols-outlined">send</span>
+                                    Create Order
+                                </button>
+</div>
+</form>
+</div>
+</div>
+<!-- Secondary visual anchor for Section 1 -->
+<div class="hidden lg:block lg:col-span-7">
+<div class="relative w-full h-full rounded-xl overflow-hidden shadow-sm group">
+<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="A macro cinematic photograph of a master goldsmith working on an intricate gold necklace. Soft, warm directional light highlights the fine textures of the 22K gold, while the background remains a blur of a professional jewelry workshop. The aesthetic is clean, luxurious, and highly detailed, reinforcing the value and precision of the AuraGold brand." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAx3wQJWzVbVJer3B6fd6qau4TfjLOK_ZXp9k9siFJqW5Ag1GgM5tX3IduQdc_bwPU3zFULtba3l3ivmb0nw73wUfAM_qKWSpBgASr5BRwzd_krtdUiELTO8hnrJRL29CCTwtiAJG-aHNoI-uboF1BQfpgddMufRVJrvuNV7yPLpuCUwzYdKr18Oo2Un9KISkY-dkKlOoNjrpa1Q1Q7VXlo7rCohzksGeBEixrrfnKbuQhh3f0AEk6yR2CeL0A80i9tGgoxxQh_NWCS')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-on-secondary-fixed via-transparent to-transparent opacity-60"></div>
+<div class="absolute bottom-0 left-0 p-xl text-white">
+<h4 class="font-headline-md text-headline-md mb-xs">Crafting Value</h4>
+<p class="font-body-md text-body-md opacity-80 max-w-md">Every order is logged with absolute precision. Our tracking system ensures that high-value inventory is managed with institutional-grade security.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Pending Orders -->
+<section class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+<div class="p-lg border-b border-outline-variant flex flex-col md:flex-row md:items-center justify-between gap-md">
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Pending Orders</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Monitor and manage orders awaiting fulfillment.</p>
+</div>
+<div class="flex items-center gap-sm">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-outline text-[20px]">filter_list</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded text-body-sm focus:ring-primary-container focus:border-primary-container w-full md:w-64" placeholder="Filter orders..." type="text">
+</div>
+<button class="flex items-center gap-xs px-md py-2 border border-outline text-on-surface-variant rounded font-label-md text-label-md hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Order ID</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Category/Type</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Weight</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Customer</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Order Date</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Status</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-[#FFFBEB] transition-colors group">
+<td class="px-lg py-md font-data-mono text-data-mono text-primary font-bold">#ORD-9021</td>
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-title-lg text-title-lg text-on-surface leading-tight">Gold</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Bridal Necklace (22K)</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-body-md">45.20g</td>
+<td class="px-lg py-md font-body-md text-body-md">Ananya Sharma</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Oct 24, 2023</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-1 bg-primary-fixed/20 text-on-primary-container rounded font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                        Processing
+                                    </span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="material-symbols-outlined text-outline-variant hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-[#FFFBEB] transition-colors group">
+<td class="px-lg py-md font-data-mono text-data-mono text-primary font-bold">#ORD-8944</td>
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-title-lg text-title-lg text-on-surface leading-tight">Diamond</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Solitaire Ring (18K)</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-body-md">8.45g</td>
+<td class="px-lg py-md font-body-md text-body-md">Vikram Malhotra</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Oct 23, 2023</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-1 bg-green-100 text-green-800 rounded font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>
+                                        Ready for Pickup
+                                    </span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="material-symbols-outlined text-outline-variant hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-[#FFFBEB] transition-colors group">
+<td class="px-lg py-md font-data-mono text-data-mono text-primary font-bold">#ORD-8910</td>
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-title-lg text-title-lg text-on-surface leading-tight">Platinum</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Men's Band</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-body-md">12.10g</td>
+<td class="px-lg py-md font-body-md text-body-md">Rajesh Khanna</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Oct 22, 2023</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-1 bg-primary-fixed/20 text-on-primary-container rounded font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                                        Processing
+                                    </span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="material-symbols-outlined text-outline-variant hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+<tr class="hover:bg-[#FFFBEB] transition-colors group">
+<td class="px-lg py-md font-data-mono text-data-mono text-primary font-bold">#ORD-8850</td>
+<td class="px-lg py-md">
+<div class="flex flex-col">
+<span class="font-title-lg text-title-lg text-on-surface leading-tight">Silver</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Ornamental Tray</span>
+</div>
+</td>
+<td class="px-lg py-md font-body-md text-body-md">240.00g</td>
+<td class="px-lg py-md font-body-md text-body-md">Meera Gupta</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface-variant">Oct 20, 2023</td>
+<td class="px-lg py-md">
+<span class="inline-flex items-center gap-xs px-sm py-1 bg-gray-100 text-gray-600 rounded font-label-md text-label-md">
+<span class="w-1.5 h-1.5 rounded-full bg-gray-400"></span>
+                                        Reserved
+                                    </span>
+</td>
+<td class="px-lg py-md text-right">
+<button class="material-symbols-outlined text-outline-variant hover:text-primary transition-colors">more_vert</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-md bg-surface-container-low flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing 4 of 28 pending orders</span>
+<div class="flex items-center gap-xs">
+<button class="p-1 rounded hover:bg-surface-container-high text-on-surface-variant disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<span class="px-sm font-label-md text-label-md text-on-surface">Page 1 of 7</span>
+<button class="p-1 rounded hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer -->
+<footer class="mt-auto p-lg border-t border-outline-variant/30 flex justify-between items-center text-on-surface-variant">
+<p class="font-label-md text-label-md">© 2023 AuraGold Inventory Systems</p>
+<div class="flex gap-lg">
+<a class="font-label-md text-label-md hover:text-primary transition-colors" href="#">Documentation</a>
+<a class="font-label-md text-label-md hover:text-primary transition-colors" href="#">Audit Logs</a>
+<a class="font-label-md text-label-md hover:text-primary transition-colors" href="#">Security</a>
+</div>
+</footer>
+</main>
+<script>
+        // Simple micro-interaction for form button
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Creating...';
+            btn.classList.add('opacity-80');
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Order Created';
+                btn.classList.remove('bg-primary-container');
+                btn.classList.add('bg-green-500', 'text-white');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.classList.remove('bg-green-500', 'text-white', 'opacity-80');
+                    btn.classList.add('bg-primary-container');
+                    form.reset();
+                }, 2000);
+            }, 1500);
+        });
+
+        // Search bar focus effect
+        const searchInput = document.querySelector('input[type="text"]');
+        searchInput.addEventListener('focus', () => {
+            searchInput.parentElement.classList.add('ring-2', 'ring-primary/20');
+        });
+        searchInput.addEventListener('blur', () => {
+            searchInput.parentElement.classList.remove('ring-2', 'ring-primary/20');
+        });
+    </script>
+</body></html>

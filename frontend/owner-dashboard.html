@@ -1,0 +1,440 @@
+<!DOCTYPE html><html lang="en" class="light" style=""><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e7e8e9",
+                    "on-tertiary-fixed": "#171d1b",
+                    "inverse-on-surface": "#f0f1f2",
+                    "surface-bright": "#f8f9fa",
+                    "primary": "#735c00",
+                    "on-secondary-fixed-variant": "#454749",
+                    "surface-container-low": "#f3f4f5",
+                    "secondary": "#5d5e61",
+                    "inverse-primary": "#e9c349",
+                    "tertiary-container": "#aeb4b2",
+                    "surface-tint": "#735c00",
+                    "surface": "#f8f9fa",
+                    "surface-variant": "#e1e3e4",
+                    "on-secondary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "surface-container": "#edeeef",
+                    "on-secondary-fixed": "#1a1c1e",
+                    "background": "#f8f9fa",
+                    "primary-fixed": "#ffe088",
+                    "outline": "#7f7663",
+                    "secondary-container": "#e2e2e5",
+                    "on-secondary-container": "#636467",
+                    "on-primary-fixed-variant": "#574500",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#dee4e1",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-tertiary-container": "#404644",
+                    "on-background": "#191c1d",
+                    "on-surface": "#191c1d",
+                    "on-primary-fixed": "#241a00",
+                    "secondary-fixed-dim": "#c6c6c9",
+                    "error-container": "#ffdad6",
+                    "surface-container-highest": "#e1e3e4",
+                    "primary-fixed-dim": "#e9c349",
+                    "on-tertiary-fixed-variant": "#424846",
+                    "on-error-container": "#93000a",
+                    "surface-dim": "#d9dadb",
+                    "tertiary": "#5a605e",
+                    "secondary-fixed": "#e2e2e5",
+                    "on-primary-container": "#554300",
+                    "primary-container": "#d4af37",
+                    "on-surface-variant": "#4d4635",
+                    "on-primary": "#ffffff",
+                    "outline-variant": "#d0c5af",
+                    "inverse-surface": "#2e3132",
+                    "tertiary-fixed-dim": "#c2c8c5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "sidebar-width": "260px",
+                    "md": "16px",
+                    "base": "4px",
+                    "sm": "8px",
+                    "gutter": "20px",
+                    "xl": "32px",
+                    "lg": "24px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "label-md": ["Inter"],
+                    "headline-sm": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "data-mono": ["Inter"]
+            },
+            "fontSize": {
+                    "label-md": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "title-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "data-mono": ["14px", {"lineHeight": "20px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="bg-background text-on-surface flex min-h-screen overflow-hidden">
+<!-- Sidebar Navigation (The Anchor) -->
+<aside class="hidden md:flex flex-col h-full w-sidebar-width bg-inverse-surface border-r border-outline-variant fixed left-0 top-0 z-50">
+<div class="px-gutter py-lg flex flex-col items-start">
+<span class="font-headline-md text-headline-md text-primary-fixed mb-1">Jstock Pro</span>
+<span class="font-label-md text-label-md text-secondary-fixed-dim opacity-70">Gold Inventory v1.0</span>
+</div>
+<button class="mx- gutter mb-xl py-md px-lg bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center justify-center gap-sm mx-4 rounded hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined">add_circle</span>
+            Add New Item
+        </button>
+<nav class="flex-grow flex flex-col gap-base mt-2">
+<!-- Active Tab: Dashboard (Implicitly determined by page intent) -->
+<a href="#" class="relative flex items-center gap-md px-gutter py-md bg-primary-container text-on-primary-container border-l-4 border-primary font-bold transition-all duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a href="#" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">diamond</span>
+<span class="font-label-md text-label-md">Ornaments</span>
+</a>
+<a href="#" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">task</span>
+<span class="font-label-md text-label-md">Task</span>
+</a>
+<a href="#" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Order</span>
+</a>
+<a href="#" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a href="#" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Request</span>
+</a>
+<a href="#" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Status</span>
+</a>
+<a href="#" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline/20 p-gutter">
+<a href="#" class="flex items-center gap-md text-secondary-fixed-dim hover:text-error transition-all duration-200">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow md:ml-sidebar-width h-screen overflow-y-auto bg-background flex flex-col">
+<!-- TopAppBar (The Header) -->
+<header class="flex justify-between items-center w-full px-gutter py-md bg-surface border-b border-outline-variant sticky top-0 z-40">
+<div class="flex items-center gap-lg">
+<h1 class="text-headline-sm font-headline-sm font-bold text-primary">Owner Insights</h1>
+<nav class="hidden lg:flex items-center gap-xl ml-lg">
+<a href="#" class="text-primary border-b-2 border-primary pb-1 font-title-lg text-title-lg">Dashboard</a>
+<a href="#" class="text-secondary hover:text-primary transition-colors font-title-lg text-title-lg">Inventory</a>
+<a href="#" class="text-secondary hover:text-primary transition-colors font-title-lg text-title-lg">Categories</a>
+<a href="#" class="text-secondary hover:text-primary transition-colors font-title-lg text-title-lg">Audits</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<input type="text" placeholder="Search gold stock..." class="bg-surface-container-low border border-outline-variant rounded py-base px-md pr-xl text-body-sm focus:outline-none focus:border-primary w-64 transition-all">
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-secondary text-sm">search</span>
+</div>
+<button class="p-base text-secondary hover:bg-surface-container-low rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center gap-sm ml-sm cursor-pointer hover:bg-surface-container-low p-base rounded transition-colors">
+<img class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A professional studio portrait of a senior business owner in a tailored charcoal suit, looking confident and approachable. The lighting is soft and cinematic, with a clean architectural office background that suggests success and established authority. The overall aesthetic is professional, sharp, and modern-corporate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADIfVTzdGKwfOPtjVb0AI9ONempyRI-pYGaXDQ5Dlk_3LQIH0I9jJpyZknIMicsgCaK_C9Hu-4GDS7kYaF3QAIFrY5uIGKrIXBMsV69z2Nr4w6bDO_LmXZX9yPYStYaybDaKhtqCm7pynvl62-HAghALeXX3qBGH6tpXciUZ9xiqYxgEacpG9iQYto4LGVsaAaS6wmb9SxClSkagjchlaCKzSgqTnHcBMgY_MNNqZ7X09J5eFGgQGDRGjp5dBm6bYyvfGxVyG0nOU2">
+<span class="material-symbols-outlined text-primary">expand_more</span>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-gutter space-y-lg flex-grow">
+<!-- High-Level Metrics Bento-->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Total Value Card -->
+<div class="col-span-1 md:col-span-2 bg-white border border-outline-variant p-lg flex flex-col justify-between overflow-hidden relative group">
+<div class="z-10">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-base">Total Inventory Value</p>
+<h2 class="font-display-lg text-display-lg text-on-surface">35,450.00</h2>
+<div class="flex items-center mt-sm text-green-600 gap-xs">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="font-label-md text-label-md">+2.4% vs last week</span>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: &quot;FILL&quot; 1;">payments</span>
+</div>
+</div>
+<!-- Stock Weight -->
+<div class="bg-white border border-outline-variant p-lg">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-base">Total Gold Weight</p>
+<h2 class="font-headline-md text-headline-md text-on-surface">54.25 <span class="text-body-sm font-normal text-secondary">kg</span></h2>
+<div class="mt-sm h-1 w-full bg-surface-container-low rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 72%"></div>
+</div>
+<p class="mt-base font-label-md text-label-md text-secondary">72% of vault capacity</p>
+</div>
+<!-- Active Tasks -->
+<div class="bg-white border border-outline-variant p-lg">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-base">Ongoing Tasks</p>
+<h2 class="font-headline-md text-headline-md text-on-surface">18</h2>
+<div class="flex items-center gap-xs mt-sm">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-md text-label-md text-on-surface-variant">4 priority audits in progress</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Inventory Oversight Table -->
+<div class="lg:col-span-2 bg-white border border-outline-variant flex flex-col">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h3 class="font-title-lg text-title-lg text-on-surface">Recent Ornament Movements</h3>
+<button class="text-primary font-label-md text-label-md flex items-center gap-xs hover:underline">
+                            View All <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container text-left">
+<th class="px-lg py-sm font-label-md text-label-md text-secondary">ITEM ID</th>
+<th class="px-lg py-sm font-label-md text-label-md text-secondary">CATEGORY</th>
+<th class="px-lg py-sm font-label-md text-label-md text-secondary">KARAT</th>
+<th class="px-lg py-sm font-label-md text-label-md text-secondary text-right">WEIGHT (G)</th>
+<th class="px-lg py-sm font-label-md text-label-md text-secondary text-center">STATUS</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-[#FFFBEB] transition-colors group">
+<td class="px-lg py-md font-data-mono text-data-mono text-on-surface">#AU-9921</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface">Necklace "Royal"</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface">22K</td>
+<td class="px-lg py-md font-data-mono text-data-mono text-on-surface text-right">45.50</td>
+<td class="px-lg py-md text-center">
+<span class="px-sm py-xs bg-green-100 text-green-800 text-[10px] font-bold uppercase rounded border border-green-200">In Stock</span>
+</td>
+</tr>
+<tr class="hover:bg-[#FFFBEB] transition-colors group">
+<td class="px-lg py-md font-data-mono text-data-mono text-on-surface">#AU-8832</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface">Bangle Set (Pair)</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface">24K</td>
+<td class="px-lg py-md font-data-mono text-data-mono text-on-surface text-right">120.25</td>
+<td class="px-lg py-md text-center">
+<span class="px-sm py-xs bg-amber-100 text-amber-800 text-[10px] font-bold uppercase rounded border border-amber-200">Reserved</span>
+</td>
+</tr>
+<tr class="hover:bg-[#FFFBEB] transition-colors group">
+<td class="px-lg py-md font-data-mono text-data-mono text-on-surface">#AU-7714</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface">Wedding Ring</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface">18K</td>
+<td class="px-lg py-md font-data-mono text-data-mono text-on-surface text-right">8.12</td>
+<td class="px-lg py-md text-center">
+<span class="px-sm py-xs bg-gray-100 text-gray-800 text-[10px] font-bold uppercase rounded border border-gray-200">Sold</span>
+</td>
+</tr>
+<tr class="hover:bg-[#FFFBEB] transition-colors group">
+<td class="px-lg py-md font-data-mono text-data-mono text-on-surface">#AU-6601</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface">Earring Studs</td>
+<td class="px-lg py-md font-body-sm text-body-sm text-on-surface">22K</td>
+<td class="px-lg py-md font-data-mono text-data-mono text-on-surface text-right">4.40</td>
+<td class="px-lg py-md text-center">
+<span class="px-sm py-xs bg-green-100 text-green-800 text-[10px] font-bold uppercase rounded border border-green-200">In Stock</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Registration Requests -->
+<div class="bg-white border border-outline-variant flex flex-col">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low">
+<h3 class="font-title-lg text-title-lg text-on-surface">Pending Requests</h3>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex items-center gap-md p-sm border border-outline-variant hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">person_add</span>
+</div>
+<div class="flex-grow">
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Sarah Jenkins</p>
+<p class="text-[11px] text-secondary">New Client Registration</p>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-primary hover:bg-primary-container rounded">
+<span class="material-symbols-outlined text-md">done</span>
+</button>
+</div>
+<div class="flex items-center gap-md p-sm border border-outline-variant hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">lock_reset</span>
+</div>
+<div class="flex-grow">
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Mark Thompson</p>
+<p class="text-[11px] text-secondary">Inventory Override Access</p>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-primary hover:bg-primary-container rounded">
+<span class="material-symbols-outlined text-md">done</span>
+</button>
+</div>
+<div class="flex items-center gap-md p-sm border border-outline-variant hover:bg-surface-container-low transition-colors group cursor-pointer">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">inventory_2</span>
+</div>
+<div class="flex-grow">
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Batch Withdrawal</p>
+<p class="text-[11px] text-secondary">1.2kg Gold Bar Release</p>
+</div>
+<button class="w-8 h-8 flex items-center justify-center text-error hover:bg-error-container rounded">
+<span class="material-symbols-outlined text-md">priority_high</span>
+</button>
+</div>
+</div>
+<div class="mt-auto p-lg pt-0">
+<button class="w-full py-sm border border-outline text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors">
+                            Manage All Requests
+                        </button>
+</div>
+</div>
+</div>
+<!-- Employee Performance & Task Oversight -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-white border border-outline-variant p-lg">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-title-lg text-title-lg text-on-surface">Employee Task Oversight</h3>
+<span class="text-secondary font-label-md text-label-md">Live Status</span>
+</div>
+<div class="space-y-gutter">
+<div class="flex items-center gap-lg">
+<div class="relative">
+<img class="w-12 h-12 rounded border-2 border-primary object-cover" data-alt="A macro close-up of a jeweler's workbench in a high-end gold manufacturing facility. A skilled craftsman is meticulously polishing a gold ring using professional precision tools. Warm yellow light reflects off the metal, highlighting the detailed textures of the workshop environment. The scene feels industrial yet luxurious, focusing on quality craftsmanship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdkV9dYv74HV7ZypkXIg6kB1bVsnbsZq2vws3o-j3IZdoKwW5ZF1pGNTq-8VeJ-mwzkI0GuS5O5rF3u7S8uclxfIlD6DmiuS2rQ2EwFrhvWuX1XDYWoBEibR5mUBlZjduO-nREpzUIgsd7uX3QIwPMzPMXitks0O_e-6DZYqBbHDKjUMKDgOi9HzZPdeeWXIcoXJwFzcygUqLGaFSQ3wCtaKNW1KMCkgiFO_paeikt5SZrBuZPP4hyDThTOrme-umyH8Pr1urzeDcv">
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between mb-1">
+<span class="font-body-sm text-body-sm font-semibold">David Rossi</span>
+<span class="font-label-md text-label-md text-secondary">Auditing Case #04</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 85%"></div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="relative">
+<img class="w-12 h-12 rounded border border-outline-variant object-cover" data-alt="A portrait of a young female jeweler with an focused expression, working in a contemporary workshop. She wears protective eyewear and is handling a delicate gold chain. The lighting is crisp and cool, creating a professional and clean atmosphere. The background shows blurred displays of luxury gold ornaments, emphasizing the premium nature of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBav0ZXX0Baz_8sGaPGmpzfthsHznJo4aSpPLJsOj3lxAUnx2pVv-tq-9-ZnjwhzDlzR39ymJ78wUDgj5w5it_p-BFA0rUVXAoINzqQJbcG7BwJhM1LZcZUnZR_N2WdOCUAEfE6YCg1E1pP7Rlb_X5C5IdIou9MVFwfH74smcBeou1tLEXjd8zYJoVS60WyUx3q45Hc12ntDkx7SwgvLnOglLJphDE2fFlJQIodAe4vr38sU2Q61Qkld2VyL8cRBX1X9oUoV_dbLGnr">
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></div>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between mb-1">
+<span class="font-body-sm text-body-sm font-semibold">Elena Vance</span>
+<span class="font-label-md text-label-md text-secondary">Tagging New Arrivals</span>
+</div>
+<div class="h-2 w-full bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 40%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Business Status Visualizer (Custom Micro-interaction placeholder) -->
+<div class="bg-inverse-surface text-primary-fixed p-lg overflow-hidden relative min-h-[200px]">
+<div class="relative z-10">
+<h3 class="font-title-lg text-title-lg mb-sm">Business Vitality</h3>
+<p class="font-body-sm text-body-sm text-secondary-fixed-dim max-w-xs mb-lg">Real-time throughput of gold processing and sales volume across all regional branches.</p>
+<div class="flex items-end gap-base h-24">
+<div class="w-6 bg-primary-container opacity-40 hover:opacity-100 transition-opacity" style="height: 60%"></div>
+<div class="w-6 bg-primary-container opacity-50 hover:opacity-100 transition-opacity" style="height: 45%"></div>
+<div class="w-6 bg-primary-container opacity-60 hover:opacity-100 transition-opacity" style="height: 80%"></div>
+<div class="w-6 bg-primary-container opacity-70 hover:opacity-100 transition-opacity" style="height: 95%"></div>
+<div class="w-6 bg-primary-container opacity-80 hover:opacity-100 transition-opacity" style="height: 65%"></div>
+<div class="w-6 bg-primary-container opacity-90 hover:opacity-100 transition-opacity" style="height: 75%"></div>
+<div class="w-6 bg-primary-container hover:opacity-100 transition-opacity" style="height: 90%"></div>
+</div>
+</div>
+<!-- Decorative Element -->
+<div class="absolute top-0 right-0 p-lg">
+<span class="material-symbols-outlined text-[64px] text-primary opacity-20">insights</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer (The Anchor) -->
+<footer class="flex justify-between items-center px-gutter py-md w-full bg-surface-container border-t border-outline-variant mt-auto">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Jstock Inventory Systems</span>
+<span class="font-body-sm text-body-sm text-secondary">© 2024 Jstock Inventory Systems. Precision &amp; Value.</span>
+</div>
+<div class="flex items-center gap-xl">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-opacity" href="#">Support</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-opacity" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-opacity" href="#">Terms of Service</a>
+</div>
+</footer>
+</main>
+<!-- Mobile Navigation (Responsive Pivot) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface flex justify-around items-center py-sm border-t border-outline-variant z-50">
+<a class="flex flex-col items-center gap-xs text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">dashboard</span>
+<span class="text-[10px] font-bold uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-secondary" href="#">
+<span class="material-symbols-outlined">diamond</span>
+<span class="text-[10px] font-bold uppercase">Items</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-secondary" href="#">
+<span class="material-symbols-outlined">task</span>
+<span class="text-[10px] font-bold uppercase">Tasks</span>
+</a>
+<a class="flex flex-col items-center gap-xs text-secondary" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase">Profile</span>
+</a>
+</nav>
+<!-- Contextual FAB (Hidden on Owner Dashboard as it's secondary to metrics, but implemented per rules for Home-like relevance) -->
+<button class="fixed right-gutter bottom-gutter md:bottom-xl md:right-xl w-14 h-14 rounded-full gold-gradient text-white shadow-xl flex items-center justify-center active:scale-95 transition-all z-40 hidden lg:flex">
+<span class="material-symbols-outlined text-2xl">add</span>
+</button>
+<script>
+        // Simple micro-interaction for active states and hover effects
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('href') === '#') e.preventDefault();
+            });
+        });
+
+        // Simulating some live data changes
+        setInterval(() => {
+            const bars = document.querySelectorAll('.bg-primary-container');
+            bars.forEach(bar => {
+                if (bar.classList.contains('opacity-40')) {
+                    const newHeight = Math.floor(Math.random() * 60) + 20;
+                    bar.style.height = newHeight + '%';
+                }
+            });
+        }, 3000);
+    </script>
+
+</body></html>
