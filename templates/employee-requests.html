@@ -1,0 +1,301 @@
+<!DOCTYPE html><html lang="en" class="light" style=""><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><meta charset="utf-8"><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body class="bg-background text-on-surface flex min-h-screen">
+<aside class="hidden md:flex flex-col h-full w-sidebar-width bg-inverse-surface border-r border-outline-variant fixed left-0 top-0 z-50">
+<div class="px-gutter py-lg">
+<h1 class="font-headline-md text-headline-md text-primary-fixed">Jstock Pro</h1>
+<p class="font-label-md text-label-md text-secondary-fixed-dim uppercase tracking-wider">Requests Portal</p>
+</div>
+<nav class="flex-1 flex flex-col gap-base px-sm mt-2">
+<a href="{{ url_for('dashboard') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a href="{{ url_for('ornaments_inventory') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">diamond</span>
+<span class="font-label-md text-label-md">Ornaments</span>
+</a>
+<a href="{{ url_for('task_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Task</span>
+</a>
+<a href="{{ url_for('order_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Order</span>
+</a>
+<a href="{{ url_for('customer_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a href="{{ url_for('employee_requests') }}" class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container border-l-4 border-primary font-bold transition-all duration-200">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Requests</span>
+</a>
+<a href="{{ url_for('business_status') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Status</span>
+</a>
+</nav>
+<div class="mt-auto px-sm pt-lg border-t border-outline/20">
+<a href="{{ url_for('logout') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-error transition-all duration-200">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<main class="flex-1 md:ml-sidebar-width">
+<header class="flex justify-between items-center h-16 px-gutter w-full bg-surface border-b border-outline-variant sticky top-0 z-40">
+<div class="flex items-center flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input type="text" placeholder="Search requests..." class="w-full bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-body-sm focus:ring-1 focus:ring-primary">
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<button class="relative cursor-pointer active:opacity-70 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="cursor-pointer active:opacity-70 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+</div>
+</header>
+<div class="p-xl max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="mb-xl flex justify-between items-end">
+<div>
+<h2 class="font-display-lg text-display-lg text-on-surface mb-xs">Employee Access Requests</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Review and manage registration applications from new staff members.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs bg-surface-container-high border border-outline text-on-surface px-md py-sm rounded font-label-md hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+                        Filter
+                    </button>
+<button class="flex items-center gap-xs bg-surface-container-high border border-outline text-on-surface px-md py-sm rounded font-label-md hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+                        Export List
+                    </button>
+</div>
+</div>
+<!-- Summary Metrics Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-lg mb-xl">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl flex flex-col justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase mb-sm">Total Pending</p>
+<h3 class="font-display-lg text-display-lg text-primary" id="metric-pending">0</h3>
+</div>
+<div class="mt-md flex items-center text-error gap-xs font-body-sm">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span>Awaiting Admin Action</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl flex flex-col justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase mb-sm">Active Staff</p>
+<h3 class="font-display-lg text-display-lg text-on-surface" id="metric-approved">0</h3>
+</div>
+<div class="mt-md flex items-center text-primary gap-xs font-body-sm">
+<span class="material-symbols-outlined text-sm">check_circle</span>
+<span>Approved Employees</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg rounded-xl flex flex-col justify-between">
+<div>
+<p class="font-label-md text-label-md text-on-surface-variant uppercase mb-sm">Avg. Response Time</p>
+<h3 class="font-display-lg text-display-lg text-on-surface">Immediate</h3>
+</div>
+<div class="mt-md flex items-center text-on-surface-variant gap-xs font-body-sm">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span>Target: Live Sync</span>
+</div>
+</div>
+<div class="bg-primary border border-outline-variant p-lg rounded-xl flex flex-col justify-between relative overflow-hidden group">
+<div class="relative z-10">
+<p class="font-label-md text-label-md text-white/80 uppercase mb-sm">Portal Status</p>
+<h3 class="font-display-lg text-display-lg text-white">Active</h3>
+</div>
+<div class="mt-md relative z-10 w-full bg-white/20 h-1.5 rounded-full overflow-hidden">
+<div class="bg-white h-full" style="width: 100%"></div>
+</div>
+<!-- Decorative background icon -->
+<span class="material-symbols-outlined absolute -right-4 -bottom-4 text-[120px] text-white/10 group-hover:rotate-12 transition-transform duration-500">group</span>
+</div>
+</div>
+<!-- Main Requests Table Container -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mb-xl">
+<div class="px-xl py-lg border-b border-outline-variant flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Pending Registration Requests</h4>
+<span class="px-sm py-1 bg-primary-container text-on-primary-container font-label-md text-[10px] rounded uppercase">Needs Action</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container text-on-surface-variant font-label-md">
+<tr>
+<th class="px-xl py-md border-b border-outline-variant">Employee Name</th>
+<th class="px-md py-md border-b border-outline-variant">Contact Information</th>
+<th class="px-md py-md border-b border-outline-variant">Temp Request ID</th>
+<th class="px-md py-md border-b border-outline-variant">Date Applied</th>
+<th class="px-md py-md border-b border-outline-variant text-center">Status</th>
+<th class="px-xl py-md border-b border-outline-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody id="requests-tbody" class="font-body-sm text-on-surface">
+<tr><td colspan="6" class="text-center py-lg text-secondary">Loading registration requests...</td></tr>
+</tbody>
+</table>
+</div>
+<div class="px-xl py-md bg-surface-container-low flex justify-between items-center">
+<p class="font-label-md text-on-surface-variant" id="requests-count-text">Showing pending requests</p>
+</div>
+</div>
+</div>
+</main>
+
+<!-- Approval Modal for Admin to Assign/Create Employee User ID -->
+<div id="approveModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-gutter">
+<div class="bg-surface p-xl rounded-xl border border-outline-variant shadow-2xl max-w-md w-full">
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm">Approve Employee Registration</h3>
+<p class="font-body-sm text-body-sm text-secondary mb-md">Assign an official <strong>Employee User ID</strong> for <span id="modal-employee-name" class="font-bold text-on-surface"></span>. This ID will allow them to log in.</p>
+
+<form id="approveForm" class="space-y-md">
+<input type="hidden" id="modal-request-id">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-xs">ASSIGN EMPLOYEE USER ID</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">badge</span>
+<input type="text" id="modal-user-id" required class="w-full pl-10 pr-4 py-2.5 bg-white border border-outline rounded text-body-md font-bold focus:ring-2 focus:ring-primary focus:border-primary outline-none" placeholder="e.g. EMP-101 or john_sales">
+</div>
+<p class="text-[12px] text-secondary mt-xs">You can customize this ID or keep the generated default.</p>
+</div>
+<div class="flex justify-end gap-sm pt-sm">
+<button type="button" onclick="closeApproveModal()" class="px-md py-2 border border-outline rounded font-label-md hover:bg-surface-container transition-colors">Cancel</button>
+<button type="submit" class="px-md py-2 bg-primary text-white rounded font-label-md hover:brightness-110 transition-colors shadow">Create ID & Approve</button>
+</div>
+</form>
+</div>
+</div>
+
+<script>
+let pendingRequestsData = [];
+
+function loadRequests() {
+    fetch('/api/employee-requests')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) return;
+            pendingRequestsData = data.pending;
+            
+            document.getElementById('metric-pending').innerText = data.stats.total_pending;
+            document.getElementById('metric-approved').innerText = data.stats.total_approved;
+            document.getElementById('requests-count-text').innerText = `Showing ${pendingRequestsData.length} pending request(s)`;
+            
+            const tbody = document.getElementById('requests-tbody');
+            if (pendingRequestsData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-xl text-secondary">No pending registration requests at this time.</td></tr>`;
+                return;
+            }
+            
+            tbody.innerHTML = pendingRequestsData.map(req => {
+                const initials = req.full_name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0,2) || 'EMP';
+                const suggestedId = 'EMP-' + req.email.split('@')[0].toUpperCase();
+                return `
+                <tr class="table-row-hover transition-colors border-b border-outline-variant">
+                    <td class="px-xl py-md">
+                        <div class="flex items-center gap-md">
+                            <div class="w-9 h-9 rounded bg-primary-container flex items-center justify-center font-bold text-on-primary-container">${initials}</div>
+                            <div>
+                                <p class="font-title-lg text-[14px]">${req.full_name}</p>
+                                <p class="text-[12px] text-on-surface-variant">Role: Employee</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-md py-md">
+                        <p class="font-data-mono text-data-mono">${req.email}</p>
+                        <p class="text-on-surface-variant text-[12px]">${req.mobile}</p>
+                    </td>
+                    <td class="px-md py-md font-data-mono text-primary font-bold">
+                        ${req.user_id}
+                    </td>
+                    <td class="px-md py-md">
+                        <p class="">${req.date_applied}</p>
+                    </td>
+                    <td class="px-md py-md text-center">
+                        <span class="px-sm py-0.5 bg-amber-100 text-amber-800 rounded-full text-[11px] font-bold border border-amber-300">PENDING</span>
+                    </td>
+                    <td class="px-xl py-md text-right">
+                        <div class="flex justify-end gap-sm">
+                            <button onclick="declineRequest(${req.id})" class="px-md py-1.5 border border-outline rounded text-error font-label-md hover:bg-error/10 transition-colors">Decline</button>
+                            <button onclick="openApproveModal(${req.id}, '${escapeHtml(req.full_name)}', '${suggestedId}')" class="px-md py-1.5 bg-primary text-white rounded font-label-md hover:brightness-110 shadow-sm transition-all flex items-center gap-xs">
+                                <span class="material-symbols-outlined text-[16px]">how_to_reg</span> Approve & Assign ID
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                `;
+            }).join('');
+        })
+        .catch(err => console.error("Error loading requests:", err));
+}
+
+function escapeHtml(str) {
+    return str.replace(/'/g, "\\'").replace(/"/g, "&quot;");
+}
+
+function openApproveModal(id, name, suggestedId) {
+    document.getElementById('modal-request-id').value = id;
+    document.getElementById('modal-employee-name').innerText = name;
+    document.getElementById('modal-user-id').value = suggestedId;
+    document.getElementById('approveModal').classList.remove('hidden');
+}
+
+function closeApproveModal() {
+    document.getElementById('approveModal').classList.add('hidden');
+}
+
+document.getElementById('approveForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const id = document.getElementById('modal-request-id').value;
+    const userId = document.getElementById('modal-user-id').value.trim();
+    
+    if (!userId) return alert("Please enter a valid Employee User ID.");
+    
+    fetch('/api/employee-requests/approve', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, user_id: userId })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            closeApproveModal();
+            loadRequests();
+            alert(data.message);
+        } else {
+            alert(data.message || "Failed to approve employee.");
+        }
+    })
+    .catch(err => console.error(err));
+});
+
+function declineRequest(id) {
+    if (!confirm("Are you sure you want to decline this registration request?")) return;
+    
+    fetch('/api/employee-requests/decline', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            loadRequests();
+        } else {
+            alert(data.message || "Failed to decline request.");
+        }
+    })
+    .catch(err => console.error(err));
+}
+
+document.addEventListener('DOMContentLoaded', loadRequests);
+</script>
+</body></html>

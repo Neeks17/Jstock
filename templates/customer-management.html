@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer Management | Jstock</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .table-row-hover:hover {
+            background-color: #FFFBEB;
+        }
+        .sidebar-active {
+            border-left: 4px solid #d4af37;
+            background-color: rgba(226, 226, 229, 0.1);
+        }
+    </style>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body class="bg-background text-on-surface flex min-h-screen">
+<aside class="hidden md:flex flex-col h-full w-sidebar-width bg-inverse-surface border-r border-outline-variant fixed left-0 top-0 z-50">
+<div class="px-gutter py-lg">
+<h1 class="font-headline-md text-headline-md text-primary-fixed">Jstock Pro</h1>
+<p class="font-label-md text-label-md text-secondary-fixed-dim uppercase tracking-wider">Customer Portal</p>
+</div>
+<nav class="flex-1 flex flex-col gap-base px-sm mt-2">
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200" href="{{ url_for('dashboard') }}">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200" href="{{ url_for('ornaments_inventory') }}">
+<span class="material-symbols-outlined">diamond</span>
+<span class="font-label-md text-label-md">Ornaments</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200" href="{{ url_for('task_management') }}">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Task</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200" href="{{ url_for('order_management') }}">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Order</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container border-l-4 border-primary font-bold transition-all duration-200" href="{{ url_for('customer_management') }}">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200" href="{{ url_for('employee_requests') }}">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Requests</span>
+</a>
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200" href="{{ url_for('business_status') }}">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Status</span>
+</a>
+</nav>
+<div class="mt-auto px-sm pt-lg border-t border-outline/20">
+<a class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-error transition-all duration-200" href="{{ url_for('logout') }}">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<div class="flex flex-col min-h-screen flex-1 md:ml-sidebar-width">
+<header class="sticky top-0 right-0 w-full z-40 bg-surface border-b border-outline-variant flex justify-between items-center h-16 px-gutter">
+<div class="flex items-center gap-xl flex-1">
+<h2 class="font-headline-md text-headline-md font-bold text-on-surface">Customer Management</h2>
+<div class="relative w-full max-w-md group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant focus:ring-2 focus:ring-primary-container/30 focus:border-primary-container outline-none text-body-sm transition-all" placeholder="Search customers by name or ID..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-2 text-secondary hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-secondary hover:bg-surface-container-low transition-all">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+</div>
+</header>
+<main class="p-lg flex-1">
+<!-- Summary Header -->
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Customer Directory</h1>
+<p class="font-body-md text-body-md text-secondary">Manage your client relationships, credit accounts, and live financial standings.</p>
+</div>
+<button type="button" onclick="openNewCustomerModal()" class="bg-primary-container text-on-primary-container px-lg py-sm font-label-md text-label-md rounded-lg flex items-center gap-sm hover:opacity-90 transition-all shadow-sm">
+<span class="material-symbols-outlined" style="font-variation-settings: 'wght' 600">person_add</span>
+                    New Customer
+                </button>
+</div>
+<!-- Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg mb-xl">
+<div class="bg-surface-container-lowest border border-outline-variant p-lg flex flex-col">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-sm">Total Active Customers</span>
+<div class="flex items-baseline gap-sm">
+<span class="font-display-lg text-display-lg text-on-surface" id="stat-total-cust">0</span>
+<span class="text-green-600 font-label-md text-label-md flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> Live
+                        </span>
+</div>
+<div class="mt-md w-full bg-surface-container h-1">
+<div class="bg-primary-container h-1 w-[70%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg flex flex-col">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-sm">Total Outstanding Credit</span>
+<div class="flex items-baseline gap-sm">
+<span class="font-display-lg text-display-lg text-error" id="stat-total-credit">₹ 0.00</span>
+</div>
+<div class="mt-md w-full bg-surface-container h-1">
+<div class="bg-error h-1 w-[45%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-lg flex flex-col">
+<span class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-sm">Total Debit Balance</span>
+<div class="flex items-baseline gap-sm">
+<span class="font-display-lg text-display-lg text-green-700" id="stat-total-debit">₹ 0.00</span>
+</div>
+<div class="mt-md w-full bg-surface-container h-1">
+<div class="bg-green-600 h-1 w-[85%]"></div>
+</div>
+</div>
+</div>
+<!-- Customer Table -->
+<div class="bg-surface-container-lowest border border-outline-variant overflow-hidden">
+<div class="px-lg py-md bg-surface-container-low border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Client List & Accounts</h3>
+<div class="flex gap-sm">
+<input type="text" id="table-search-input" placeholder="Quick filter..." onkeyup="filterCustomerTable()" class="px-md py-sm bg-white border border-outline-variant rounded text-body-sm outline-none">
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-outline-variant">
+<th class="px-lg py-md font-label-md text-label-md text-secondary">Customer Name</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary">Contact Information</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary text-center">Orders</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary text-right">Credit Balance (₹)</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary text-right">Debit Balance (₹)</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary text-center">Action</th>
+</tr>
+</thead>
+<tbody id="customers-tbody" class="divide-y divide-outline-variant/30">
+<tr><td colspan="6" class="text-center py-lg text-secondary">Loading customers directory...</td></tr>
+</tbody>
+</table>
+</div>
+<div class="px-lg py-md bg-surface-container-low border-t border-outline-variant flex justify-between items-center">
+<p class="font-body-sm text-body-sm text-secondary" id="showing-cust-count">Showing 0 customers</p>
+</div>
+</div>
+</main>
+
+<!-- New Customer Modal -->
+<div id="newCustomerModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl border border-outline-variant max-w-md w-full p-lg shadow-2xl space-y-md">
+    <div class="flex justify-between items-center border-b border-outline-variant pb-sm">
+      <div class="flex items-center gap-sm">
+        <span class="material-symbols-outlined text-primary text-2xl">person_add</span>
+        <h3 class="font-title-lg text-title-lg font-bold text-on-surface">Add New Customer</h3>
+      </div>
+      <button onclick="closeNewCustomerModal()" type="button" class="text-secondary hover:text-error transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    
+    <form id="newCustomerForm" class="space-y-md">
+      <div class="space-y-xs">
+        <label class="font-label-md text-secondary uppercase">Customer Full Name</label>
+        <input type="text" id="cust-name" required placeholder="e.g. Ramesh Sharma" class="w-full p-2 border border-outline-variant rounded font-body-sm outline-none focus:ring-1 focus:ring-primary">
+      </div>
+      
+      <div class="grid grid-cols-2 gap-md">
+        <div class="space-y-xs">
+          <label class="font-label-md text-secondary uppercase">Mobile Number</label>
+          <input type="text" id="cust-mobile" required placeholder="+91 98765 43210" class="w-full p-2 border border-outline-variant rounded font-body-sm outline-none">
+        </div>
+        <div class="space-y-xs">
+          <label class="font-label-md text-secondary uppercase">Email Address</label>
+          <input type="email" id="cust-email" placeholder="client@example.com" class="w-full p-2 border border-outline-variant rounded font-body-sm outline-none">
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-md">
+        <div class="space-y-xs">
+          <label class="font-label-md text-secondary uppercase">Initial Credit (₹)</label>
+          <input type="number" id="cust-credit" step="100" min="0" value="0" class="w-full p-2 border border-outline-variant rounded font-body-sm outline-none">
+        </div>
+        <div class="space-y-xs">
+          <label class="font-label-md text-secondary uppercase">Initial Debit (₹)</label>
+          <input type="number" id="cust-debit" step="100" min="0" value="0" class="w-full p-2 border border-outline-variant rounded font-body-sm outline-none">
+        </div>
+      </div>
+      
+      <div class="pt-sm flex gap-md">
+        <button type="button" onclick="closeNewCustomerModal()" class="w-1/2 py-2 border border-outline-variant rounded font-label-md text-secondary hover:bg-surface-container-low transition-colors">Cancel</button>
+        <button type="submit" id="submitCustBtn" class="w-1/2 py-2 bg-primary text-on-primary font-bold rounded shadow-md hover:scale-[1.02] active:scale-95 transition-transform flex items-center justify-center gap-xs">
+          <span class="material-symbols-outlined text-sm">check_circle</span> Save Customer
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Edit Balance Modal -->
+<div id="editBalanceModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl border border-outline-variant max-w-md w-full p-lg shadow-2xl space-y-md">
+    <div class="flex justify-between items-center border-b border-outline-variant pb-sm">
+      <div class="flex items-center gap-sm">
+        <span class="material-symbols-outlined text-primary text-2xl">edit_note</span>
+        <h3 class="font-title-lg text-title-lg font-bold text-on-surface">Update Credit & Debit</h3>
+      </div>
+      <button onclick="closeEditBalanceModal()" type="button" class="text-secondary hover:text-error transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    
+    <form id="editBalanceForm" class="space-y-md">
+      <input type="hidden" id="edit-cust-id">
+      <div class="bg-surface-container-low p-3 rounded border border-outline-variant">
+        <p class="font-body-md font-bold text-on-surface" id="edit-cust-name-display">Customer Name</p>
+        <p class="text-xs text-secondary" id="edit-cust-code-display">ID: JS-0000</p>
+      </div>
+      
+      <div class="space-y-xs">
+        <label class="font-label-md text-secondary uppercase">Credit Balance (₹ INR)</label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-primary">₹</span>
+          <input type="number" id="edit-cust-credit" step="10" min="0" required class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded font-title-lg outline-none focus:ring-1 focus:ring-primary">
+        </div>
+      </div>
+      
+      <div class="space-y-xs">
+        <label class="font-label-md text-secondary uppercase">Debit Balance (₹ INR)</label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-primary">₹</span>
+          <input type="number" id="edit-cust-debit" step="10" min="0" required class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded font-title-lg outline-none focus:ring-1 focus:ring-primary">
+        </div>
+      </div>
+      
+      <div class="pt-sm flex gap-md">
+        <button type="button" onclick="closeEditBalanceModal()" class="w-1/2 py-2 border border-outline-variant rounded font-label-md text-secondary hover:bg-surface-container-low transition-colors">Cancel</button>
+        <button type="submit" id="submitBalanceBtn" class="w-1/2 py-2 bg-primary text-on-primary font-bold rounded shadow-md hover:scale-[1.02] active:scale-95 transition-transform flex items-center justify-center gap-xs">
+          <span class="material-symbols-outlined text-sm">published_with_changes</span> Update Live
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="mt-auto px-lg py-md border-t border-outline-variant/30 flex justify-between items-center text-secondary">
+<p class="text-[12px]">© 2024 Jstock Inventory Systems. All rights reserved.</p>
+<div class="flex gap-md">
+<a class="text-[12px] hover:text-primary-container transition-colors" href="#">Privacy Policy</a>
+<a class="text-[12px] hover:text-primary-container transition-colors" href="#">Terms of Service</a>
+</div>
+</footer>
+</div>
+
+<script>
+let allCustomers = [];
+
+function openNewCustomerModal() { document.getElementById('newCustomerModal').classList.remove('hidden'); }
+function closeNewCustomerModal() { document.getElementById('newCustomerModal').classList.add('hidden'); }
+
+function openEditBalanceModal(c) {
+    document.getElementById('edit-cust-id').value = c.id;
+    document.getElementById('edit-cust-name-display').innerText = c.name;
+    document.getElementById('edit-cust-code-display').innerText = `ID: ${c.customer_id} | Mobile: ${c.mobile}`;
+    document.getElementById('edit-cust-credit').value = c.credit_balance;
+    document.getElementById('edit-cust-debit').value = c.debit_balance;
+    document.getElementById('editBalanceModal').classList.remove('hidden');
+}
+
+function closeEditBalanceModal() { document.getElementById('editBalanceModal').classList.add('hidden'); }
+
+function formatINRCust(val) {
+    return '₹ ' + (val || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function loadCustomers() {
+    fetch('/api/customers')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) return;
+            allCustomers = data.customers;
+            
+            document.getElementById('stat-total-cust').innerText = data.stats.total_customers;
+            document.getElementById('stat-total-credit').innerText = formatINRCust(data.stats.total_credit_inr);
+            document.getElementById('stat-total-debit').innerText = formatINRCust(data.stats.total_debit_inr);
+            
+            renderCustomerTable(allCustomers);
+        })
+        .catch(err => console.error(err));
+}
+
+function renderCustomerTable(custs) {
+    const tbody = document.getElementById('customers-tbody');
+    document.getElementById('showing-cust-count').innerText = `Showing ${custs.length} customers`;
+    
+    if (custs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-lg text-secondary">No customers found.</td></tr>`;
+        return;
+    }
+    
+    tbody.innerHTML = custs.map(c => {
+        const initials = c.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() || 'C';
+        const creditCls = c.credit_balance > 0 ? 'text-error font-bold' : 'text-secondary-fixed-dim';
+        const debitCls = c.debit_balance > 0 ? 'text-green-700 font-bold' : 'text-secondary-fixed-dim';
+        
+        return `
+        <tr class="table-row-hover transition-colors">
+            <td class="px-lg py-md">
+                <div class="flex items-center gap-md">
+                    <div class="w-10 h-10 bg-primary-container/20 text-primary-container font-bold flex items-center justify-center rounded-full">${initials}</div>
+                    <div>
+                        <p class="font-title-lg text-body-md font-semibold text-on-surface">${c.name}</p>
+                        <p class="text-[10px] text-secondary">ID: ${c.customer_id}</p>
+                    </div>
+                </div>
+            </td>
+            <td class="px-lg py-md">
+                <div class="space-y-xs">
+                    <p class="font-body-sm text-body-sm text-on-surface flex items-center gap-sm">
+                        <span class="material-symbols-outlined text-[16px] text-secondary">mail</span> ${c.email || 'N/A'}
+                    </p>
+                    <p class="font-body-sm text-body-sm text-on-surface flex items-center gap-sm">
+                        <span class="material-symbols-outlined text-[16px] text-secondary">phone</span> ${c.mobile}
+                    </p>
+                </div>
+            </td>
+            <td class="px-lg py-md text-center">
+                <span class="bg-surface-container-highest px-3 py-1 rounded-full font-label-md text-label-md text-on-surface">${c.orders_count || 0}</span>
+            </td>
+            <td class="px-lg py-md text-right font-data-mono text-data-mono ${creditCls}">${formatINRCust(c.credit_balance)}</td>
+            <td class="px-lg py-md text-right font-data-mono text-data-mono ${debitCls}">${formatINRCust(c.debit_balance)}</td>
+            <td class="px-lg py-md text-center">
+                <button type="button" onclick='openEditBalanceModal(${JSON.stringify(c)})' class="px-3 py-1 bg-primary-container text-on-primary-container text-xs font-bold rounded hover:opacity-90 transition-all inline-flex items-center gap-xs shadow-sm">
+                    <span class="material-symbols-outlined text-sm">edit</span> Edit Balance
+                </button>
+            </td>
+        </tr>
+        `;
+    }).join('');
+}
+
+function filterCustomerTable() {
+    const q = document.getElementById('table-search-input').value.toLowerCase().trim();
+    if (!q) {
+        renderCustomerTable(allCustomers);
+        return;
+    }
+    const filtered = allCustomers.filter(c => 
+        c.name.toLowerCase().includes(q) ||
+        c.customer_id.toLowerCase().includes(q) ||
+        c.mobile.toLowerCase().includes(q) ||
+        (c.email && c.email.toLowerCase().includes(q))
+    );
+    renderCustomerTable(filtered);
+}
+
+// Form Handlers
+document.getElementById('newCustomerForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitCustBtn');
+    const orig = btn.innerHTML;
+    
+    const payload = {
+        name: document.getElementById('cust-name').value,
+        mobile: document.getElementById('cust-mobile').value,
+        email: document.getElementById('cust-email').value,
+        credit_balance: document.getElementById('cust-credit').value,
+        debit_balance: document.getElementById('cust-debit').value
+    };
+    
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Saving...';
+    btn.disabled = true;
+    
+    fetch('/api/customers/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Saved!';
+            document.getElementById('newCustomerForm').reset();
+            closeNewCustomerModal();
+            loadCustomers();
+            setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1000);
+        } else {
+            alert(data.message || 'Failed to create customer');
+            btn.innerHTML = orig;
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        btn.innerHTML = orig;
+        btn.disabled = false;
+    });
+});
+
+document.getElementById('editBalanceForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBalanceBtn');
+    const orig = btn.innerHTML;
+    
+    const payload = {
+        id: document.getElementById('edit-cust-id').value,
+        credit_balance: document.getElementById('edit-cust-credit').value,
+        debit_balance: document.getElementById('edit-cust-debit').value
+    };
+    
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Updating...';
+    btn.disabled = true;
+    
+    fetch('/api/customers/update-balance', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Updated!';
+            closeEditBalanceModal();
+            loadCustomers();
+            setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; }, 1000);
+        } else {
+            alert(data.message || 'Failed to update balance');
+            btn.innerHTML = orig;
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        btn.innerHTML = orig;
+        btn.disabled = false;
+    });
+});
+
+document.addEventListener('DOMContentLoaded', loadCustomers);
+</script>
+</body></html>

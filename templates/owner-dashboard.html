@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="en" class="light" style=""><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><meta charset="utf-8"><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body class="bg-background text-on-surface flex min-h-screen overflow-hidden">
+<!-- Sidebar Navigation (The Anchor) -->
+<aside class="hidden md:flex flex-col h-full w-sidebar-width bg-inverse-surface border-r border-outline-variant fixed left-0 top-0 z-50">
+<div class="px-gutter py-lg flex flex-col items-start">
+<span class="font-headline-md text-headline-md text-primary-fixed mb-1">Jstock Pro</span>
+<span class="font-label-md text-label-md text-secondary-fixed-dim opacity-70">Gold Inventory v1.0</span>
+</div>
+<button class="mx- gutter mb-xl py-md px-lg bg-primary-container text-on-primary-container font-label-md text-label-md flex items-center justify-center gap-sm mx-4 rounded hover:opacity-90 transition-all active:scale-95">
+<span class="material-symbols-outlined">add_circle</span>
+            Add New Item
+        </button>
+<nav class="flex-grow flex flex-col gap-base mt-2">
+<!-- Active Tab: Dashboard (Implicitly determined by page intent) -->
+<a href="{{ url_for('dashboard') }}" class="relative flex items-center gap-md px-gutter py-md bg-primary-container text-on-primary-container border-l-4 border-primary font-bold transition-all duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a href="{{ url_for('ornaments_inventory') }}" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">diamond</span>
+<span class="font-label-md text-label-md">Ornaments</span>
+</a>
+<a href="{{ url_for('task_management') }}" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">task</span>
+<span class="font-label-md text-label-md">Task</span>
+</a>
+<a href="{{ url_for('order_management') }}" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Order</span>
+</a>
+<a href="{{ url_for('customer_management') }}" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a href="{{ url_for('employee_requests') }}" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Request</span>
+</a>
+<a href="{{ url_for('business_status') }}" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Status</span>
+</a>
+<a href="#" class="flex items-center gap-md px-gutter py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline/20 p-gutter">
+<a href="{{ url_for('logout') }}" class="flex items-center gap-md text-secondary-fixed-dim hover:text-error transition-all duration-200">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow md:ml-sidebar-width h-screen overflow-y-auto bg-background flex flex-col">
+<!-- TopAppBar (The Header) -->
+<header class="flex justify-between items-center w-full px-gutter py-md bg-surface border-b border-outline-variant sticky top-0 z-40">
+<div class="flex items-center gap-lg">
+<h1 class="text-headline-sm font-headline-sm font-bold text-primary">Welcome, {{ name }}</h1>
+<nav class="hidden lg:flex items-center gap-xl ml-lg">
+<a href="{{ url_for('dashboard') }}" class="text-primary border-b-2 border-primary pb-1 font-title-lg text-title-lg">Dashboard</a>
+<a href="{{ url_for('ornaments_inventory') }}" class="text-secondary hover:text-primary transition-colors font-title-lg text-title-lg">Inventory</a>
+<a href="{{ url_for('customer_management') }}" class="text-secondary hover:text-primary transition-colors font-title-lg text-title-lg">Categories</a>
+<a href="{{ url_for('employee_requests') }}" class="text-secondary hover:text-primary transition-colors font-title-lg text-title-lg">Audits</a>
+</nav>
+</div>
+<div class="flex items-center gap-md">
+<div class="relative hidden sm:block">
+<input type="text" placeholder="Search gold stock..." class="bg-surface-container-low border border-outline-variant rounded py-base px-md pr-xl text-body-sm focus:outline-none focus:border-primary w-64 transition-all">
+<span class="material-symbols-outlined absolute right-sm top-1/2 -translate-y-1/2 text-secondary text-sm">search</span>
+</div>
+<button class="p-base text-secondary hover:bg-surface-container-low rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="flex items-center gap-sm ml-sm cursor-pointer hover:bg-surface-container-low p-base rounded transition-colors">
+<img class="w-8 h-8 rounded-full border border-outline-variant object-cover" data-alt="A professional studio portrait of a senior business owner in a tailored charcoal suit, looking confident and approachable. The lighting is soft and cinematic, with a clean architectural office background that suggests success and established authority. The overall aesthetic is professional, sharp, and modern-corporate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADIfVTzdGKwfOPtjVb0AI9ONempyRI-pYGaXDQ5Dlk_3LQIH0I9jJpyZknIMicsgCaK_C9Hu-4GDS7kYaF3QAIFrY5uIGKrIXBMsV69z2Nr4w6bDO_LmXZX9yPYStYaybDaKhtqCm7pynvl62-HAghALeXX3qBGH6tpXciUZ9xiqYxgEacpG9iQYto4LGVsaAaS6wmb9SxClSkagjchlaCKzSgqTnHcBMgY_MNNqZ7X09J5eFGgQGDRGjp5dBm6bYyvfGxVyG0nOU2">
+<span class="material-symbols-outlined text-primary">expand_more</span>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="p-gutter space-y-lg flex-grow">
+<!-- High-Level Metrics Bento-->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<!-- Total Value Card -->
+<div class="col-span-1 md:col-span-2 bg-white border border-outline-variant p-lg flex flex-col justify-between overflow-hidden relative group">
+<div class="z-10">
+<div class="flex justify-between items-center mb-base">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Total Inventory Value (INR)</p>
+<span id="stat-gold-rate-badge" class="bg-primary-container/30 text-on-primary-container px-2 py-0.5 rounded text-[11px] font-bold">Rate: ₹7,250 / g (24K)</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-on-surface" id="stat-inventory-value">₹ 0.00</h2>
+<div class="flex items-center mt-sm text-green-600 gap-xs">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+<span class="font-label-md text-label-md">Calculated dynamically via Indian Market Rates</span>
+</div>
+</div>
+<div class="absolute right-0 bottom-0 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+</div>
+</div>
+<!-- Treasury Cash Balance Card with Add Money Button -->
+<div class="bg-white border border-outline-variant p-lg flex flex-col justify-between relative group">
+<div>
+<div class="flex justify-between items-center mb-xs">
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Treasury Cash</p>
+<button type="button" onclick="openAddMoneyModal()" class="flex items-center gap-xs px-2 py-1 bg-primary text-on-primary rounded font-label-md text-[11px] font-bold hover:opacity-90 active:scale-95 transition-all shadow-sm">
+<span class="material-symbols-outlined text-[14px]">add</span> Add Money
+</button>
+</div>
+<h2 class="font-headline-md text-headline-md text-primary font-bold mt-1" id="stat-treasury-cash">₹ 0.00</h2>
+</div>
+<p class="mt-base font-label-md text-label-md text-secondary">Synced with live Cash Treasury</p>
+</div>
+<!-- Total Gold Weight -->
+<div class="bg-white border border-outline-variant p-lg flex flex-col justify-between">
+<div>
+<p class="font-label-md text-label-md text-secondary uppercase tracking-wider mb-base">Total Gold Weight</p>
+<h2 class="font-headline-md text-headline-md text-on-surface" id="stat-total-weight">0.00 <span class="text-body-sm font-normal text-secondary">g</span></h2>
+</div>
+<p class="mt-base font-label-md text-label-md text-secondary">Vault Total Weight</p>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+<!-- Inventory Oversight Table -->
+<div class="lg:col-span-2 bg-white border border-outline-variant flex flex-col">
+<div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+<h3 class="font-title-lg text-title-lg text-on-surface">Recent Ornament Movements</h3>
+<a href="{{ url_for('order_management') }}" class="text-primary font-label-md text-label-md flex items-center gap-xs hover:underline">
+                            View All Orders <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</a>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse">
+<thead>
+<tr class="bg-surface-container text-left">
+<th class="px-lg py-sm font-label-md text-label-md text-secondary">ORDER ID</th>
+<th class="px-lg py-sm font-label-md text-label-md text-secondary">CATEGORY / ITEM</th>
+<th class="px-lg py-sm font-label-md text-label-md text-secondary">PURITY</th>
+<th class="px-lg py-sm font-label-md text-label-md text-secondary text-right">WEIGHT (G)</th>
+<th class="px-lg py-sm font-label-md text-label-md text-secondary text-center">STATUS</th>
+</tr>
+</thead>
+<tbody id="recent-movements-tbody" class="divide-y divide-outline-variant">
+<tr><td colspan="5" class="text-center py-lg text-secondary">Loading recent movements...</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Registration / System Status Card -->
+<div class="bg-white border border-outline-variant flex flex-col">
+<div class="px-lg py-md border-b border-outline-variant bg-surface-container-low flex justify-between items-center">
+<h3 class="font-title-lg text-title-lg text-on-surface">Quick Access</h3>
+<a href="{{ url_for('employee_requests') }}" class="text-primary font-label-md text-label-md hover:underline">Requests Portal</a>
+</div>
+<div class="p-lg space-y-md">
+<div class="flex items-center gap-md p-sm border border-outline-variant hover:bg-surface-container-low transition-colors group cursor-pointer" onclick="window.location.href='{{ url_for('employee_requests') }}'">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">person_add</span>
+</div>
+<div class="flex-grow">
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Employee Approvals</p>
+<p class="text-[11px] text-secondary">Review pending registration requests</p>
+</div>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</div>
+<div class="flex items-center gap-md p-sm border border-outline-variant hover:bg-surface-container-low transition-colors group cursor-pointer" onclick="window.location.href='{{ url_for('task_management') }}'">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">assignment</span>
+</div>
+<div class="flex-grow">
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Task Delegation</p>
+<p class="text-[11px] text-secondary">Assign duties & set due dates</p>
+</div>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</div>
+<div class="flex items-center gap-md p-sm border border-outline-variant hover:bg-surface-container-low transition-colors group cursor-pointer" onclick="window.location.href='{{ url_for('ornaments_inventory') }}'">
+<div class="w-10 h-10 rounded-full bg-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-container">diamond</span>
+</div>
+<div class="flex-grow">
+<p class="font-body-sm text-body-sm text-on-surface font-semibold">Ornament Catalog</p>
+<p class="text-[11px] text-secondary">View stock purity & breakdown</p>
+</div>
+<span class="material-symbols-outlined text-primary">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Employee Performance & Task Oversight -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="bg-white border border-outline-variant p-lg">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-title-lg text-title-lg text-on-surface">Employee Task Oversight</h3>
+<a href="{{ url_for('task_management') }}" class="text-primary font-label-md text-label-md hover:underline">Task Portal</a>
+</div>
+<div id="tasks-oversight-list" class="space-y-md">
+<p class="text-secondary text-sm">Loading task oversight...</p>
+</div>
+</div>
+<!-- Business Status Visualizer -->
+<div class="bg-inverse-surface text-primary-fixed p-lg overflow-hidden relative min-h-[200px]">
+<div class="relative z-10">
+<h3 class="font-title-lg text-title-lg mb-sm">Business Vitality</h3>
+<p class="font-body-sm text-body-sm text-secondary-fixed-dim max-w-xs mb-lg">Real-time throughput of gold processing and sales volume across all regional branches.</p>
+<div class="flex items-end gap-base h-24">
+<div class="w-6 bg-primary-container opacity-40 hover:opacity-100 transition-opacity" style="height: 60%"></div>
+<div class="w-6 bg-primary-container opacity-50 hover:opacity-100 transition-opacity" style="height: 45%"></div>
+<div class="w-6 bg-primary-container opacity-60 hover:opacity-100 transition-opacity" style="height: 80%"></div>
+<div class="w-6 bg-primary-container opacity-70 hover:opacity-100 transition-opacity" style="height: 95%"></div>
+<div class="w-6 bg-primary-container opacity-80 hover:opacity-100 transition-opacity" style="height: 65%"></div>
+<div class="w-6 bg-primary-container opacity-90 hover:opacity-100 transition-opacity" style="height: 75%"></div>
+<div class="w-6 bg-primary-container hover:opacity-100 transition-opacity" style="height: 90%"></div>
+</div>
+</div>
+<div class="absolute top-0 right-0 p-lg">
+<span class="material-symbols-outlined text-[64px] text-primary opacity-20">insights</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer (The Anchor) -->
+<footer class="flex justify-between items-center px-gutter py-md w-full bg-surface-container border-t border-outline-variant mt-auto">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Jstock Inventory Systems</span>
+<span class="font-body-sm text-body-sm text-secondary">© 2024 Jstock Inventory Systems. Precision &amp; Value.</span>
+</div>
+<div class="flex items-center gap-xl">
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-opacity" href="#">Support</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-opacity" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-opacity" href="#">Terms of Service</a>
+</div>
+</footer>
+</main>
+<!-- Add Money Modal -->
+<div id="addMoneyModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl border border-outline-variant max-w-md w-full p-lg shadow-2xl space-y-md">
+    <div class="flex justify-between items-center border-b border-outline-variant pb-sm">
+      <div class="flex items-center gap-sm">
+        <span class="material-symbols-outlined text-primary text-2xl">account_balance_wallet</span>
+        <h3 class="font-title-lg text-title-lg font-bold text-on-surface">Add Money to Treasury</h3>
+      </div>
+      <button onclick="closeAddMoneyModal()" type="button" class="text-secondary hover:text-error transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    
+    <form id="addMoneyForm" class="space-y-md">
+      <div class="space-y-xs">
+        <label class="font-label-md text-label-md text-secondary uppercase">Amount (₹ INR)</label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-primary text-lg">₹</span>
+          <input type="number" id="cash-amount" step="100" min="1" required placeholder="50,000" class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded font-title-lg text-title-lg outline-none focus:ring-1 focus:ring-primary">
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-md">
+        <div class="space-y-xs">
+          <label class="font-label-md text-label-md text-secondary uppercase">Payment Mode</label>
+          <select id="cash-mode" class="w-full p-2 border border-outline-variant rounded font-body-sm text-body-sm outline-none">
+            <option value="Cash">Cash Counter</option>
+            <option value="UPI">UPI / GPay / PhonePe</option>
+            <option value="Bank Transfer">Bank Transfer (NEFT/IMPS)</option>
+            <option value="Cheque">Cheque Deposit</option>
+          </select>
+        </div>
+        <div class="space-y-xs">
+          <label class="font-label-md text-label-md text-secondary uppercase">Source / Type</label>
+          <select id="cash-source" class="w-full p-2 border border-outline-variant rounded font-body-sm text-body-sm outline-none">
+            <option value="Capital Deposit">Capital Deposit</option>
+            <option value="Sales Revenue">Sales Revenue</option>
+            <option value="Customer Advance">Customer Advance</option>
+            <option value="Other Inflow">Other Cash Inflow</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="space-y-xs">
+        <label class="font-label-md text-label-md text-secondary uppercase">Remarks / Reference</label>
+        <input type="text" id="cash-remarks" placeholder="e.g. Treasury deposit for stock purchase" class="w-full p-2 border border-outline-variant rounded font-body-sm text-body-sm outline-none">
+      </div>
+      
+      <div class="pt-sm flex gap-md">
+        <button type="button" onclick="closeAddMoneyModal()" class="w-1/2 py-2 border border-outline-variant rounded font-label-md text-secondary hover:bg-surface-container-low transition-colors">Cancel</button>
+        <button type="submit" id="submitAddMoneyBtn" class="w-1/2 py-2 bg-primary text-on-primary font-bold rounded shadow-md hover:scale-[1.02] active:scale-95 transition-transform flex items-center justify-center gap-xs">
+          <span class="material-symbols-outlined text-sm">check_circle</span> Add Funds
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const orderStatuses = ['Processing', 'Ready for Pickup', 'On Hold', 'Reserved', 'Completed'];
+const taskStatuses = ['Pending', 'In Progress', 'On Hold', 'Completed'];
+
+function openAddMoneyModal() {
+    document.getElementById('addMoneyModal').classList.remove('hidden');
+}
+
+function closeAddMoneyModal() {
+    document.getElementById('addMoneyModal').classList.add('hidden');
+}
+
+function formatINR(val) {
+    return '₹ ' + (val || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function loadOwnerDashboardData() {
+    fetch('/api/dashboard-summary')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) return;
+            
+            // Metrics
+            const wtG = data.stats.total_weight_g;
+            document.getElementById('stat-total-weight').innerHTML = wtG >= 1000 ? 
+                `${(wtG/1000).toFixed(2)} <span class="text-body-sm font-normal text-secondary">kg</span>` : 
+                `${wtG.toFixed(2)} <span class="text-body-sm font-normal text-secondary">g</span>`;
+            
+            document.getElementById('stat-inventory-value').innerText = formatINR(data.stats.total_gold_value_inr);
+            document.getElementById('stat-treasury-cash').innerText = formatINR(data.stats.total_cash_inr);
+            document.getElementById('stat-gold-rate-badge').innerText = `Rate: ${data.stats.gold_rate_display}`;
+            
+            // Recent Orders Movement Table
+            const movementsTbody = document.getElementById('recent-movements-tbody');
+            if (data.recent_orders.length === 0) {
+                movementsTbody.innerHTML = `<tr><td colspan="5" class="text-center py-lg text-secondary">No recent order movements logged.</td></tr>`;
+            } else {
+                movementsTbody.innerHTML = data.recent_orders.map(ord => {
+                    const optHtml = orderStatuses.map(s => `<option value="${s}" ${ord.status === s ? 'selected' : ''}>${s}</option>`).join('');
+                    let bg = "bg-primary-container/20 text-on-primary-container";
+                    if (ord.status === 'Completed' || ord.status === 'Ready for Pickup') bg = "bg-green-100 text-green-800 font-bold";
+                    else if (ord.status === 'On Hold') bg = "bg-amber-100 text-amber-800 font-bold";
+                    
+                    return `
+                    <tr class="hover:bg-[#FFFBEB] transition-colors group">
+                        <td class="px-lg py-md font-data-mono text-data-mono text-primary font-bold">#${ord.order_id}</td>
+                        <td class="px-lg py-md font-body-sm text-body-sm text-on-surface">
+                            <strong>${ord.category}</strong> - ${ord.item_type}
+                        </td>
+                        <td class="px-lg py-md font-body-sm text-body-sm text-on-surface">${ord.purity}</td>
+                        <td class="px-lg py-md font-data-mono text-data-mono text-on-surface text-right font-bold">${parseFloat(ord.weight).toFixed(2)}</td>
+                        <td class="px-lg py-md text-center">
+                            <select class="px-2 py-0.5 rounded text-[11px] font-bold border border-outline-variant outline-none cursor-pointer ${bg}" onchange="quickUpdateOrderStatus(${ord.id}, this.value)">
+                                ${optHtml}
+                            </select>
+                        </td>
+                    </tr>
+                    `;
+                }).join('');
+            }
+            
+            // Employee Task Oversight List
+            const taskList = document.getElementById('tasks-oversight-list');
+            if (data.recent_tasks.length === 0) {
+                taskList.innerHTML = `<p class="text-secondary text-sm">No tasks assigned.</p>`;
+            } else {
+                taskList.innerHTML = data.recent_tasks.map(tsk => {
+                    const taskOptHtml = taskStatuses.map(s => `<option value="${s}" ${tsk.status === s ? 'selected' : ''}>${s}</option>`).join('');
+                    let tBg = "bg-primary-container text-on-primary-container";
+                    if (tsk.status === 'Completed') tBg = "bg-green-100 text-green-800 font-bold";
+                    else if (tsk.status === 'On Hold') tBg = "bg-amber-100 text-amber-800 font-bold";
+                    
+                    return `
+                    <div class="flex items-center justify-between p-sm border border-outline-variant rounded hover:bg-surface-container-low transition-colors">
+                        <div>
+                            <p class="font-body-sm text-body-sm font-semibold text-on-surface">${tsk.description}</p>
+                            <p class="text-[11px] text-secondary">Assignee: ${tsk.assignee} | Due: ${tsk.due_date || 'N/A'}</p>
+                        </div>
+                        <select class="px-2 py-0.5 text-[10px] font-bold rounded border border-outline-variant outline-none cursor-pointer ${tBg}" onchange="quickUpdateTaskStatus(${tsk.id}, this.value)">
+                            ${taskOptHtml}
+                        </select>
+                    </div>
+                    `;
+                }).join('');
+            }
+        })
+        .catch(err => console.error("Error loading dashboard summary:", err));
+}
+
+function quickUpdateOrderStatus(id, newStatus) {
+    fetch('/api/orders/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, status: newStatus })
+    })
+    .then(res => res.json())
+    .then(data => { if (data.success) loadOwnerDashboardData(); });
+}
+
+function quickUpdateTaskStatus(id, newStatus) {
+    fetch('/api/tasks/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, status: newStatus })
+    })
+    .then(res => res.json())
+    .then(data => { if (data.success) loadOwnerDashboardData(); });
+}
+
+document.getElementById('addMoneyForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitAddMoneyBtn');
+    const orig = btn.innerHTML;
+    
+    const payload = {
+        amount: document.getElementById('cash-amount').value,
+        payment_mode: document.getElementById('cash-mode').value,
+        source: document.getElementById('cash-source').value,
+        remarks: document.getElementById('cash-remarks').value
+    };
+    
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Adding...';
+    btn.disabled = true;
+    
+    fetch('/api/cash/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Added!';
+            document.getElementById('addMoneyForm').reset();
+            closeAddMoneyModal();
+            loadOwnerDashboardData();
+            setTimeout(() => {
+                btn.innerHTML = orig;
+                btn.disabled = false;
+            }, 1000);
+        } else {
+            alert(data.message || 'Failed to add money.');
+            btn.innerHTML = orig;
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        btn.innerHTML = orig;
+        btn.disabled = false;
+    });
+});
+
+document.addEventListener('DOMContentLoaded', loadOwnerDashboardData);
+</script>
+</body></html>

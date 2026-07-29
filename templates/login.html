@@ -1,0 +1,100 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body class="bg-inverse-surface min-h-screen flex flex-col items-center justify-center p-gutter">
+
+    <!-- Subtle Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none opacity-20">
+        <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] bg-primary opacity-20 blur-[120px] rounded-full"></div>
+        <div class="absolute -bottom-[10%] -right-[10%] w-[30%] h-[30%] bg-primary opacity-10 blur-[100px] rounded-full"></div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="relative w-full max-w-md z-10">
+        
+        <!-- Login Card -->
+        <div class="bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-xl aurum-glow">
+            
+            <!-- Logo Section -->
+            <div class="flex flex-col items-center mb-xl">
+                <div class="w-12 h-12 bg-primary-container flex items-center justify-center rounded-lg mb-md">
+                    <span class="material-symbols-outlined text-on-primary-container text-[28px]" style="font-variation-settings: &quot;FILL&quot; 1;">diamond</span>
+                </div>
+                <h1 class="font-headline-md text-headline-md text-on-surface tracking-tight">Jstock</h1>
+                <p class="font-body-sm text-body-sm text-secondary mt-1">Gold Inventory Management</p>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="mb-sm p-sm rounded text-body-sm {% if category == 'error' %}bg-error text-on-error{% else %}bg-primary-container text-on-primary-container{% endif %}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+
+            <!-- Login Form -->
+            <form id="loginForm" class="space-y-lg" action="{{ url_for('login') }}" method="POST">
+                <!-- User ID Field -->
+                <div class="space-y-xs">
+                    <label for="user_id" class="block font-label-md text-label-md text-secondary uppercase tracking-widest">User ID</label>
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-md group-focus-within:text-primary transition-colors">account_circle</span>
+                        <input type="text" id="user_id" name="user_id" placeholder="Enter your system ID" class="w-full bg-surface-container border border-outline-variant rounded-lg py-3 pl-11 pr-md font-body-md text-body-md text-on-surface input-focus-gold transition-all placeholder:text-secondary-fixed-dim" required="">
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="space-y-xs">
+                    <div class="flex justify-between items-center">
+                        <label for="password" class="block font-label-md text-label-md text-secondary uppercase tracking-widest">Password</label>
+                        <a href="#" class="font-label-md text-label-md text-primary hover:underline transition-all">Forgot?</a>
+                    </div>
+                    <div class="relative group">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-md group-focus-within:text-primary transition-colors">lock</span>
+                        <input type="password" id="password" name="password" placeholder="••••••••" class="w-full bg-surface-container border border-outline-variant rounded-lg py-3 pl-11 pr-md font-body-md text-body-md text-on-surface input-focus-gold transition-all placeholder:text-secondary-fixed-dim" required="">
+                    </div>
+                </div>
+
+                <!-- Security Check (Simulated) -->
+                <div class="flex items-center space-x-sm py-xs">
+                    <input type="checkbox" id="remember" class="w-4 h-4 rounded-sm border-outline-variant text-primary focus:ring-primary">
+                    <label for="remember" class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer">Trust this device for 30 days</label>
+                </div>
+
+                <!-- Action Button -->
+                <button type="submit" class="w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-4 rounded-lg uppercase tracking-widest font-bold flex items-center justify-center space-x-sm hover:brightness-110 active:scale-[0.98] transition-all duration-150">
+                    <span class="">Login&nbsp;<br></span>
+                    <span class="material-symbols-outlined text-md">login</span>
+                </button>
+            </form>
+
+            <!-- Registration Link -->
+            <div class="mt-xl pt-lg border-t border-outline-variant/30 text-center">
+                <p class="font-body-sm text-body-sm text-secondary">
+                    New operator? 
+                    <a href="{{ url_for('register') }}" class="text-primary font-bold hover:underline transition-all ml-1">Apply for Register</a>
+                </p>
+            </div>
+        </div>
+
+        <!-- System Footer Info -->
+        <div class="mt-lg flex justify-between items-center px-sm">
+            <div class="flex items-center space-x-sm text-secondary-fixed-dim">
+                <span class="material-symbols-outlined text-sm">security</span>
+                <span class="font-label-md text-label-md">256-bit Encrypted</span>
+            </div>
+            <div class="flex space-x-md text-secondary-fixed-dim font-label-md text-label-md">
+                <a href="#" class="hover:text-primary transition-colors">Privacy</a>
+                <a href="#" class="hover:text-primary transition-colors">Support</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Visual Polish: Decorative Geometric Background -->
+    <div class="fixed bottom-0 left-0 p-lg hidden lg:block">
+        <div class="flex items-center space-x-md">
+            <div class="w-12 h-[1px] bg-outline-variant/40"></div>
+            <span class="font-data-mono text-[10px] text-secondary-fixed-dim uppercase tracking-tighter opacity-50">Authorized Personnel Only • IP Logged</span>
+        </div>
+    </div>
+
+</body></html>

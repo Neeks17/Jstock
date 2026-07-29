@@ -1,0 +1,394 @@
+<!DOCTYPE html><html lang="en" class="light" style=""><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body class="bg-background text-on-surface flex min-h-screen">
+    <aside class="hidden md:flex flex-col h-full w-sidebar-width bg-inverse-surface border-r border-outline-variant fixed left-0 top-0 z-50">
+        <div class="px-gutter py-lg">
+            <h1 class="font-headline-md text-headline-md text-primary-fixed">Jstock Pro</h1>
+            <p class="font-label-md text-label-md text-secondary-fixed-dim uppercase tracking-wider">Employee Portal</p>
+        </div>
+
+        <nav class="flex-1 flex flex-col gap-base px-sm mt-2">
+            <button class="flex items-center gap-md px-md py-sm mb-2 bg-primary text-on-primary rounded-lg font-bold shadow-sm hover:scale-105 transition-all duration-200 w-[calc(100%-16px)] mx-auto">
+                <span class="material-symbols-outlined">add_circle</span>
+                <span class="font-label-md text-label-md">Add New Item</span>
+            </button>
+            <a href="{{ url_for('dashboard') }}" class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container border-l-4 border-primary font-bold transition-all duration-200">
+                <span class="material-symbols-outlined">dashboard</span>
+                <span class="font-label-md text-label-md">Dashboard</span>
+            </a>
+            <a href="{{ url_for('ornaments_inventory') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+                <span class="material-symbols-outlined">diamond</span>
+                <span class="font-label-md text-label-md">Ornaments</span>
+            </a>
+            <a href="{{ url_for('task_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+                <span class="material-symbols-outlined">assignment</span>
+                <span class="font-label-md text-label-md">Task</span>
+            </a>
+            <a href="{{ url_for('order_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+                <span class="material-symbols-outlined">shopping_cart</span>
+                <span class="font-label-md text-label-md">Order</span>
+            </a>
+            <a href="{{ url_for('customer_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+                <span class="material-symbols-outlined">group</span>
+                <span class="font-label-md text-label-md">Customers</span>
+            </a>
+            <a href="{{ url_for('employee_requests') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+                <span class="material-symbols-outlined">mail</span>
+                <span class="font-label-md text-label-md">Requests</span>
+            </a>
+            <a href="{{ url_for('business_status') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+                <span class="material-symbols-outlined">analytics</span>
+                <span class="font-label-md text-label-md">Status</span>
+            </a>
+        </nav>
+
+        <div class="mt-auto px-sm pt-lg border-t border-outline/20">
+            <div class="flex items-center gap-md px-md py-sm mb-md">
+                <div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">JD</div>
+                <div>
+                    <p class="font-label-md text-label-md text-primary-fixed">{{ name }}</p>
+                    <p class="text-[10px] text-secondary-fixed-dim uppercase">Inventory Clerk</p>
+                </div>
+            </div>
+            <a href="{{ url_for('logout') }}" class="w-full flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-error transition-all duration-200">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-label-md text-label-md">Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 md:ml-sidebar-width flex flex-col min-w-0 bg-background">
+        <header class="flex justify-between items-center w-full px-gutter py-md bg-surface border-b border-outline-variant sticky top-0 z-40">
+            <div class="flex items-center gap-xl">
+                <h2 class="font-title-lg text-title-lg text-on-surface">Daily Overview</h2>
+                <div class="hidden md:flex gap-lg">
+                    <span class="font-body-sm text-body-sm text-secondary">Gold Rate: <span class="font-bold text-primary" id="emp-gold-rate-header">₹7,250 / g (24K)</span></span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-md">
+                <button type="button" onclick="openEmpAddMoneyModal()" class="flex items-center gap-xs px-md py-sm bg-primary text-on-primary rounded font-bold hover:scale-105 transition-transform shadow-sm">
+                    <span class="material-symbols-outlined text-sm">add_card</span> Add Money
+                </button>
+                <div class="relative flex items-center">
+                    <span class="material-symbols-outlined absolute left-3 text-secondary text-sm">search</span>
+                    <input type="text" placeholder="Search inventory..." class="pl-10 pr-4 py-2 bg-surface-container-low border border-outline-variant rounded-lg text-body-sm font-body-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all w-64">
+                </div>
+            </div>
+        </header>
+
+        <div class="p-gutter space-y-lg">
+            
+            <!-- Bento Dashboard Header Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+                <div class="bg-surface-container-lowest border border-outline-variant p-lg flex flex-col gap-sm">
+                    <p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Treasury Cash (INR)</p>
+                    <div class="flex justify-between items-end">
+                        <span id="emp-stat-cash" class="font-headline-md text-headline-md font-bold text-primary">₹ 0.00</span>
+                        <button type="button" onclick="openEmpAddMoneyModal()" class="text-primary hover:underline text-[10px] font-bold">+ ADD</button>
+                    </div>
+                </div>
+                <div class="bg-surface-container-lowest border border-outline-variant p-lg flex flex-col gap-sm">
+                    <p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Inventory Value</p>
+                    <div class="flex justify-between items-end">
+                        <span id="emp-stat-gold-val" class="font-title-lg text-title-lg font-bold text-on-surface">₹ 0.00</span>
+                        <span class="material-symbols-outlined text-primary">payments</span>
+                    </div>
+                </div>
+                <div class="bg-surface-container-lowest border border-outline-variant p-lg flex flex-col gap-sm">
+                    <p class="font-label-md text-label-md text-secondary uppercase tracking-wider">Total Gold Weight</p>
+                    <div class="flex justify-between items-end">
+                        <span id="emp-stat-weight" class="font-title-lg text-title-lg font-bold text-on-surface">0.00g</span>
+                        <span class="material-symbols-outlined text-primary">scale</span>
+                    </div>
+                </div>
+                <div class="bg-primary-container/20 border border-primary/30 p-lg flex flex-col gap-sm cursor-pointer hover:bg-primary-container/30 transition-colors group" onclick="window.location.href='{{ url_for('order_management') }}'">
+                    <p class="font-label-md text-label-md text-primary uppercase tracking-wider">Quick Action</p>
+                    <div class="flex justify-between items-center">
+                        <span class="font-title-lg text-title-lg text-on-surface">Place Order</span>
+                        <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">add_circle</span>
+                    </div>
+                    <p class="text-[10px] text-secondary uppercase mt-1">Create new order item</p>
+                </div>
+            </div>
+
+            <!-- Asymmetric Grid Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter items-start">
+                
+                <!-- Left: Recent Inventory Tasks -->
+                <div class="lg:col-span-2 space-y-gutter">
+                    <section class="bg-surface-container-lowest border border-outline-variant">
+                        <div class="px-lg py-md border-b border-outline-variant flex justify-between items-center bg-surface-container-low/50">
+                            <h3 class="font-title-lg text-title-lg flex items-center gap-sm">
+                                <span class="material-symbols-outlined text-primary">checklist</span>
+                                Inventory Priority Tasks
+                            </h3>
+                            <a href="{{ url_for('task_management') }}" class="font-label-md text-label-md text-primary hover:underline transition-all">Task Portal</a>
+                        </div>
+                        <div id="emp-priority-tasks-list" class="divide-y divide-outline-variant">
+                            <p class="p-lg text-secondary text-sm">Loading priority tasks...</p>
+                        </div>
+                    </section>
+
+                    <!-- Recent Orders Table -->
+                    <section class="bg-surface-container-lowest border border-outline-variant">
+                        <div class="px-lg py-md border-b border-outline-variant flex justify-between items-center">
+                            <h3 class="font-title-lg text-title-lg">Recent Orders</h3>
+                            <a href="{{ url_for('order_management') }}" class="font-label-md text-label-md text-primary hover:underline">View All</a>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left">
+                                <thead class="bg-surface-container-low border-b border-outline-variant">
+                                    <tr>
+                                        <th class="px-lg py-md font-label-md text-label-md text-secondary uppercase">Order ID</th>
+                                        <th class="px-lg py-md font-label-md text-label-md text-secondary uppercase">Item Details</th>
+                                        <th class="px-lg py-md font-label-md text-label-md text-secondary uppercase text-right">Net Weight</th>
+                                        <th class="px-lg py-md font-label-md text-label-md text-secondary uppercase">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="emp-recent-orders-tbody" class="divide-y divide-outline-variant">
+                                    <tr><td colspan="4" class="text-center py-lg text-secondary">Loading recent orders...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Right: Quick Order Shortcut -->
+                <div class="space-y-gutter">
+                    <section class="bg-surface-container-lowest border border-outline-variant p-lg space-y-md">
+                        <div class="flex items-center gap-sm border-b border-outline-variant pb-md">
+                            <span class="material-symbols-outlined text-primary">add_box</span>
+                            <h3 class="font-title-lg text-title-lg text-on-surface">Quick Order Portal</h3>
+                        </div>
+                        <p class="font-body-sm text-body-sm text-secondary">Navigate to Order Management to record new orders into inventory in real time.</p>
+                        <button type="button" onclick="window.location.href='{{ url_for('order_management') }}'" class="w-full bg-primary text-on-primary font-bold py-md rounded shadow-sm hover:scale-[1.02] transition-transform active:scale-95">Go to Order Management</button>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="mt-auto bg-surface-container px-gutter py-md w-full border-t border-outline-variant flex justify-between items-center">
+            <p class="font-body-sm text-body-sm text-secondary">© 2024 Jstock Inventory Systems. Precision &amp; Value.</p>
+            <div class="flex gap-lg">
+                <a href="#" class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-opacity">Support</a>
+                <a href="#" class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-opacity">Privacy Policy</a>
+                <a href="#" class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-opacity">Terms of Service</a>
+            </div>
+        </footer>
+
+    </main>
+
+<!-- Add Money Modal for Employee -->
+<div id="empAddMoneyModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center hidden">
+  <div class="bg-white rounded-xl border border-outline-variant max-w-md w-full p-lg shadow-2xl space-y-md">
+    <div class="flex justify-between items-center border-b border-outline-variant pb-sm">
+      <div class="flex items-center gap-sm">
+        <span class="material-symbols-outlined text-primary text-2xl">account_balance_wallet</span>
+        <h3 class="font-title-lg text-title-lg font-bold text-on-surface">Record Cash Entry</h3>
+      </div>
+      <button onclick="closeEmpAddMoneyModal()" type="button" class="text-secondary hover:text-error transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    
+    <form id="empAddMoneyForm" class="space-y-md">
+      <div class="space-y-xs">
+        <label class="font-label-md text-label-md text-secondary uppercase">Amount (₹ INR)</label>
+        <div class="relative">
+          <span class="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-primary text-lg">₹</span>
+          <input type="number" id="emp-cash-amount" step="100" min="1" required placeholder="10,000" class="w-full pl-8 pr-4 py-2 border border-outline-variant rounded font-title-lg text-title-lg outline-none focus:ring-1 focus:ring-primary">
+        </div>
+      </div>
+      
+      <div class="grid grid-cols-2 gap-md">
+        <div class="space-y-xs">
+          <label class="font-label-md text-label-md text-secondary uppercase">Payment Mode</label>
+          <select id="emp-cash-mode" class="w-full p-2 border border-outline-variant rounded font-body-sm text-body-sm outline-none">
+            <option value="Cash">Cash Counter</option>
+            <option value="UPI">UPI / GPay / PhonePe</option>
+            <option value="Bank Transfer">Bank Transfer (NEFT/IMPS)</option>
+          </select>
+        </div>
+        <div class="space-y-xs">
+          <label class="font-label-md text-label-md text-secondary uppercase">Source / Type</label>
+          <select id="emp-cash-source" class="w-full p-2 border border-outline-variant rounded font-body-sm text-body-sm outline-none">
+            <option value="Sales Revenue">Sales Revenue</option>
+            <option value="Customer Advance">Customer Advance</option>
+            <option value="Capital Deposit">Capital Deposit</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="space-y-xs">
+        <label class="font-label-md text-label-md text-secondary uppercase">Remarks / Reference</label>
+        <input type="text" id="emp-cash-remarks" placeholder="e.g. Counter sales cash deposit" class="w-full p-2 border border-outline-variant rounded font-body-sm text-body-sm outline-none">
+      </div>
+      
+      <div class="pt-sm flex gap-md">
+        <button type="button" onclick="closeEmpAddMoneyModal()" class="w-1/2 py-2 border border-outline-variant rounded font-label-md text-secondary hover:bg-surface-container-low transition-colors">Cancel</button>
+        <button type="submit" id="empSubmitAddMoneyBtn" class="w-1/2 py-2 bg-primary text-on-primary font-bold rounded shadow-md hover:scale-[1.02] active:scale-95 transition-transform flex items-center justify-center gap-xs">
+          <span class="material-symbols-outlined text-sm">check_circle</span> Deposit Cash
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const empOrderStatuses = ['Processing', 'Ready for Pickup', 'On Hold', 'Reserved', 'Completed'];
+const empTaskStatuses = ['Pending', 'In Progress', 'On Hold', 'Completed'];
+
+function openEmpAddMoneyModal() {
+    document.getElementById('empAddMoneyModal').classList.remove('hidden');
+}
+
+function closeEmpAddMoneyModal() {
+    document.getElementById('empAddMoneyModal').classList.add('hidden');
+}
+
+function formatEmpINR(val) {
+    return '₹ ' + (val || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function loadEmployeeDashboardData() {
+    fetch('/api/dashboard-summary')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) return;
+            
+            document.getElementById('emp-stat-cash').innerText = formatEmpINR(data.stats.total_cash_inr);
+            document.getElementById('emp-stat-gold-val').innerText = formatEmpINR(data.stats.total_gold_value_inr);
+            document.getElementById('emp-gold-rate-header').innerText = data.stats.gold_rate_display;
+            
+            const wtG = data.stats.total_weight_g;
+            document.getElementById('emp-stat-weight').innerText = wtG >= 1000 ? (wtG/1000).toFixed(2) + 'kg' : wtG.toFixed(2) + 'g';
+            
+            // Priority tasks
+            const tasksList = document.getElementById('emp-priority-tasks-list');
+            if (data.recent_tasks.length === 0) {
+                tasksList.innerHTML = `<p class="p-lg text-secondary text-sm text-center">No active priority tasks.</p>`;
+            } else {
+                tasksList.innerHTML = data.recent_tasks.map(tsk => {
+                    const taskOptHtml = empTaskStatuses.map(s => `<option value="${s}" ${tsk.status === s ? 'selected' : ''}>${s}</option>`).join('');
+                    let tBg = "bg-primary-container text-on-primary-container";
+                    if (tsk.status === 'Completed') tBg = "bg-green-100 text-green-800 font-bold";
+                    else if (tsk.status === 'On Hold') tBg = "bg-amber-100 text-amber-800 font-bold";
+
+                    return `
+                    <div class="p-lg flex items-center justify-between hover:bg-primary-container/5 transition-colors">
+                        <div class="flex items-center gap-md">
+                            <div class="w-10 h-10 ${tsk.priority === 'High' ? 'bg-error-container/20 text-error' : 'bg-primary-container/20 text-primary'} flex items-center justify-center rounded">
+                                <span class="material-symbols-outlined">${tsk.priority === 'High' ? 'priority_high' : 'task'}</span>
+                            </div>
+                            <div>
+                                <p class="font-body-md text-body-md font-bold text-on-surface">${tsk.description}</p>
+                                <p class="font-body-sm text-body-sm text-secondary">Assignee: ${tsk.assignee} | Due: ${tsk.due_date || 'N/A'}</p>
+                            </div>
+                        </div>
+                        <select class="px-2 py-1 text-body-sm font-semibold rounded border border-outline-variant outline-none cursor-pointer ${tBg}" onchange="empUpdateTaskStatus(${tsk.id}, this.value)">
+                            ${taskOptHtml}
+                        </select>
+                    </div>
+                    `;
+                }).join('');
+            }
+            
+            // Recent Orders
+            const ordersTbody = document.getElementById('emp-recent-orders-tbody');
+            if (data.recent_orders.length === 0) {
+                ordersTbody.innerHTML = `<tr><td colspan="4" class="text-center py-lg text-secondary">No orders recorded yet.</td></tr>`;
+            } else {
+                ordersTbody.innerHTML = data.recent_orders.map(ord => {
+                    const optHtml = empOrderStatuses.map(s => `<option value="${s}" ${ord.status === s ? 'selected' : ''}>${s}</option>`).join('');
+                    let bg = "bg-primary-container/20 text-on-primary-container";
+                    if (ord.status === 'Completed' || ord.status === 'Ready for Pickup') bg = "bg-green-100 text-green-800 font-bold";
+                    else if (ord.status === 'On Hold') bg = "bg-amber-100 text-amber-800 font-bold";
+
+                    return `
+                    <tr class="hover:bg-[#FFFBEB] transition-colors cursor-pointer group">
+                        <td class="px-lg py-md font-data-mono text-data-mono text-primary font-bold">#${ord.order_id}</td>
+                        <td class="px-lg py-md">
+                            <p class="font-body-sm text-body-sm font-bold text-on-surface">${ord.category} - ${ord.item_type}</p>
+                            <p class="text-[11px] text-secondary">Purity: ${ord.purity} | Customer: ${ord.customer_name}</p>
+                        </td>
+                        <td class="px-lg py-md font-data-mono text-data-mono text-on-surface text-right font-bold">${parseFloat(ord.weight).toFixed(2)}g</td>
+                        <td class="px-lg py-md">
+                            <select class="px-2 py-1 text-body-sm font-semibold rounded border border-outline-variant outline-none cursor-pointer ${bg}" onchange="empUpdateOrderStatus(${ord.id}, this.value)">
+                                ${optHtml}
+                            </select>
+                        </td>
+                    </tr>
+                    `;
+                }).join('');
+            }
+        })
+        .catch(err => console.error("Error loading employee dashboard data:", err));
+}
+
+function empUpdateOrderStatus(id, newStatus) {
+    fetch('/api/orders/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, status: newStatus })
+    })
+    .then(res => res.json())
+    .then(data => { if (data.success) loadEmployeeDashboardData(); });
+}
+
+function empUpdateTaskStatus(id, newStatus) {
+    fetch('/api/tasks/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, status: newStatus })
+    })
+    .then(res => res.json())
+    .then(data => { if (data.success) loadEmployeeDashboardData(); });
+}
+
+document.getElementById('empAddMoneyForm')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('empSubmitAddMoneyBtn');
+    const orig = btn.innerHTML;
+    
+    const payload = {
+        amount: document.getElementById('emp-cash-amount').value,
+        payment_mode: document.getElementById('emp-cash-mode').value,
+        source: document.getElementById('emp-cash-source').value,
+        remarks: document.getElementById('emp-cash-remarks').value
+    };
+    
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Depositing...';
+    btn.disabled = true;
+    
+    fetch('/api/cash/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Deposited!';
+            document.getElementById('empAddMoneyForm').reset();
+            closeEmpAddMoneyModal();
+            loadEmployeeDashboardData();
+            setTimeout(() => {
+                btn.innerHTML = orig;
+                btn.disabled = false;
+            }, 1000);
+        } else {
+            alert(data.message || 'Failed to deposit cash.');
+            btn.innerHTML = orig;
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        btn.innerHTML = orig;
+        btn.disabled = false;
+    });
+});
+
+document.addEventListener('DOMContentLoaded', loadEmployeeDashboardData);
+</script>
+</body></html>

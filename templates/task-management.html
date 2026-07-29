@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="en" class="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><meta charset="utf-8"><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body class="bg-background text-on-surface flex min-h-screen">
+<aside class="hidden md:flex flex-col h-full w-sidebar-width bg-inverse-surface border-r border-outline-variant fixed left-0 top-0 z-50">
+<div class="px-gutter py-lg">
+<h1 class="font-headline-md text-headline-md text-primary-fixed">Jstock Pro</h1>
+<p class="font-label-md text-label-md text-secondary-fixed-dim uppercase tracking-wider">Task Portal</p>
+</div>
+<nav class="flex-1 flex flex-col gap-base px-sm mt-2">
+<a href="{{ url_for('dashboard') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a href="{{ url_for('ornaments_inventory') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">diamond</span>
+<span class="font-label-md text-label-md">Ornaments</span>
+</a>
+<a href="{{ url_for('task_management') }}" class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container border-l-4 border-primary font-bold transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label-md text-label-md">Task</span>
+</a>
+<a href="{{ url_for('order_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Order</span>
+</a>
+<a href="{{ url_for('customer_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a href="{{ url_for('employee_requests') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Requests</span>
+</a>
+<a href="{{ url_for('business_status') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Status</span>
+</a>
+</nav>
+<div class="mt-auto px-sm pt-lg border-t border-outline/20">
+<a href="{{ url_for('logout') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-error transition-all duration-200">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<div class="flex-grow ml-sidebar-width h-screen flex flex-col overflow-hidden">
+<header class="w-full h-16 bg-surface border-b border-outline-variant flex justify-between items-center px-gutter shrink-0">
+<div class="flex items-center gap-md grow">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input type="text" placeholder="Search tasks or inventory..." class="w-full bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 font-body-sm text-body-sm focus:ring-1 focus:ring-primary-container outline-none transition-all">
+</div>
+</div>
+<div class="flex items-center gap-lg">
+<div class="flex items-center gap-md">
+<button class="relative p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="settings">settings</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow overflow-y-auto p-lg space-y-lg">
+<!-- Page Header -->
+<div class="flex justify-between items-end">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Task Management</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Oversee inventory audits, restocking, and customer requests.</p>
+</div>
+<div class="flex gap-sm">
+<button class="flex items-center gap-xs px-md py-sm bg-surface-container-lowest border border-outline-variant rounded hover:bg-surface-container-low transition-colors font-label-md text-label-md text-secondary">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span> Filter
+                    </button>
+<button class="flex items-center gap-xs px-md py-sm bg-primary text-on-primary rounded hover:opacity-90 transition-opacity font-label-md text-label-md font-bold">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span> New Task
+                    </button>
+</div>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Left Section: Task List -->
+<div class="col-span-12 xl:col-span-8 space-y-lg">
+<div class="bg-white rounded-lg border border-outline-variant overflow-hidden">
+<div class="bg-surface-container-low px-md py-sm border-b border-outline-variant flex justify-between items-center">
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-widest">Current Assignments</h3>
+<span id="active-tasks-badge" class="bg-primary-container/20 text-on-primary-container px-2 py-0.5 rounded text-[10px] font-bold">0 ACTIVE</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left">
+<thead class="bg-surface-container-lowest border-b border-outline-variant">
+<tr>
+<th class="px-md py-3 font-label-md text-label-md text-on-surface-variant">DESCRIPTION</th>
+<th class="px-md py-3 font-label-md text-label-md text-on-surface-variant">PRIORITY</th>
+<th class="px-md py-3 font-label-md text-label-md text-on-surface-variant">STATUS</th>
+<th class="px-md py-3 font-label-md text-label-md text-on-surface-variant text-right">DUE DATE</th>
+</tr>
+</thead>
+<tbody id="tasks-tbody" class="divide-y divide-outline-variant">
+<tr><td colspan="4" class="text-center py-lg text-secondary">Loading assigned tasks...</td></tr>
+</tbody>
+</table>
+</div>
+<div class="px-md py-3 bg-surface-container-lowest border-t border-outline-variant flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-secondary" id="tasks-count-text">Showing tasks</span>
+</div>
+</div>
+<!-- Visual Accent Card -->
+<div class="grid grid-cols-2 gap-lg">
+<div class="p-lg bg-inverse-surface rounded-lg text-white flex flex-col justify-between h-40">
+<div>
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary-fixed-dim">Task System Status</p>
+<h4 class="text-3xl font-bold mt-1" id="system-status-text">Active</h4>
+</div>
+<p class="text-xs text-tertiary-fixed-dim">Live data synchronization active across vault & dashboards.</p>
+</div>
+<div class="p-lg bg-surface border border-outline-variant rounded-lg flex flex-col justify-between h-40 overflow-hidden relative">
+<div class="relative z-10">
+<p class="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface-variant">Pending High-Priority Alerts</p>
+<h4 class="text-3xl font-bold mt-1 text-on-surface" id="pending-alerts-count">0</h4>
+</div>
+<p class="text-xs text-on-surface-variant/70 relative z-10">Critical tasks requiring immediate team attention.</p>
+</div>
+</div>
+</div>
+<!-- Right Section: Create New Task -->
+<div class="col-span-12 xl:col-span-4 space-y-lg">
+<div class="bg-white rounded-lg border border-outline-variant p-lg shadow-sm">
+<div class="mb-lg">
+<h3 class="font-title-lg text-title-lg text-on-surface">Create New Task</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Assign duties to team members or set reminders.</p>
+</div>
+<form id="createTaskForm" class="space-y-md">
+<!-- Description -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Task Description</label>
+<textarea id="task-description" required class="w-full p-3 border border-outline-variant rounded focus:ring-1 focus:ring-primary-container focus:border-primary-container outline-none font-body-sm text-body-sm transition-all" placeholder="Describe the task in detail..." rows="3"></textarea>
+</div>
+<!-- Priority Selection -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Priority Level</label>
+<input type="hidden" id="task-priority" value="Medium">
+<div class="grid grid-cols-3 gap-xs">
+<button id="prio-low" class="py-2 border border-outline-variant rounded font-label-md text-label-md hover:bg-surface-container-low transition-colors text-on-surface-variant" type="button" onclick="setPriority('Low')">Low</button>
+<button id="prio-med" class="py-2 border border-primary text-primary bg-primary-fixed/20 rounded font-label-md text-label-md font-bold" type="button" onclick="setPriority('Medium')">Medium</button>
+<button id="prio-high" class="py-2 border border-outline-variant rounded font-label-md text-label-md hover:bg-surface-container-low transition-colors text-on-surface-variant" type="button" onclick="setPriority('High')">High</button>
+</div>
+</div>
+<!-- Assignee & Date -->
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Assign To</label>
+<select id="task-assignee" class="w-full p-2 border border-outline-variant rounded font-body-sm text-body-sm outline-none">
+<option value="Alex Mercer">Alex Mercer</option>
+<option value="Sarah Chen">Sarah Chen</option>
+<option value="James Wilson">James Wilson</option>
+<option value="David Rossi">David Rossi</option>
+<option value="Elena Vance">Elena Vance</option>
+</select>
+</div>
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Due Date</label>
+<input id="task-due-date" required class="w-full p-2 border border-outline-variant rounded font-body-sm text-body-sm outline-none" type="date">
+</div>
+</div>
+<!-- Tags/Category -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface-variant">Category Tag</label>
+<select id="task-category-tag" class="w-full p-2 border border-outline-variant rounded font-body-sm text-body-sm outline-none">
+<option value="#inventory">#inventory</option>
+<option value="#audit">#audit</option>
+<option value="#customer">#customer</option>
+<option value="#security">#security</option>
+</select>
+</div>
+<div class="pt-md">
+<button id="submitTaskBtn" class="w-full py-3 bg-primary text-on-primary rounded font-label-md text-label-md font-bold hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-sm shadow-md shadow-primary/20" type="submit">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+                                    Assign Task
+                                </button>
+</div>
+</form>
+</div>
+<!-- Help Box -->
+<div class="p-lg rounded-lg border border-outline-variant bg-surface-container-lowest flex items-start gap-md">
+<span class="material-symbols-outlined text-primary-container" data-icon="lightbulb" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-bold">Pro Tip</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1 leading-relaxed">Tasks created here update immediately on Task Management and are reflected in live status on the Owner and Employee dashboards.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Area -->
+<footer class="flex flex-row justify-between items-center py-md border-t border-outline-variant mt-xl">
+<p class="font-body-sm text-body-sm text-secondary">© 2024 Jstock Inventory Systems. All rights reserved.</p>
+<div class="flex gap-lg">
+<a class="font-body-sm text-body-sm text-on-secondary-fixed-variant hover:text-primary underline transition-all" href="#">Privacy Policy</a>
+<a class="font-body-sm text-body-sm text-on-secondary-fixed-variant hover:text-primary underline transition-all" href="#">Terms of Service</a>
+</div>
+</footer>
+</main>
+</div>
+
+<script>
+let allTasksData = [];
+
+function setPriority(val) {
+    document.getElementById('task-priority').value = val;
+    ['low', 'med', 'high'].forEach(p => {
+        const btn = document.getElementById(`prio-${p}`);
+        btn.className = "py-2 border border-outline-variant rounded font-label-md text-label-md hover:bg-surface-container-low transition-colors text-on-surface-variant";
+    });
+    
+    if (val === 'Low') {
+        document.getElementById('prio-low').className = "py-2 border border-primary text-primary bg-primary-fixed/20 rounded font-label-md text-label-md font-bold";
+    } else if (val === 'Medium') {
+        document.getElementById('prio-med').className = "py-2 border border-primary text-primary bg-primary-fixed/20 rounded font-label-md text-label-md font-bold";
+    } else if (val === 'High') {
+        document.getElementById('prio-high').className = "py-2 border border-error text-error bg-error-container/30 rounded font-label-md text-label-md font-bold";
+    }
+}
+
+function loadTasks() {
+    fetch('/api/tasks')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) return;
+            allTasksData = data.tasks;
+            
+            document.getElementById('active-tasks-badge').innerText = `${data.stats.active_count} ACTIVE`;
+            document.getElementById('pending-alerts-count').innerText = data.stats.pending_alerts;
+            document.getElementById('tasks-count-text').innerText = `Showing ${allTasksData.length} task(s)`;
+            
+            renderTasksTable(allTasksData);
+        })
+        .catch(err => console.error("Error loading tasks:", err));
+}
+
+function renderTasksTable(tasks) {
+    const tbody = document.getElementById('tasks-tbody');
+    if (tasks.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="4" class="text-center py-xl text-secondary">No tasks assigned yet.</td></tr>`;
+        return;
+    }
+    
+    const taskStatuses = ['Pending', 'In Progress', 'On Hold', 'Completed'];
+    
+    tbody.innerHTML = tasks.map(tsk => {
+        let prioBadge = `<span class="px-2 py-1 rounded bg-secondary-container text-on-secondary-container text-[11px] font-bold">MEDIUM</span>`;
+        if (tsk.priority === 'High') {
+            prioBadge = `<span class="px-2 py-1 rounded bg-error-container text-on-error-container text-[11px] font-bold">HIGH</span>`;
+        } else if (tsk.priority === 'Low') {
+            prioBadge = `<span class="px-2 py-1 rounded bg-surface-container text-on-secondary-fixed-variant text-[11px] font-bold">LOW</span>`;
+        }
+        
+        let bgClass = "bg-primary-container/20 text-primary";
+        if (tsk.status === 'Completed') {
+            bgClass = "bg-green-100 text-green-800 font-bold";
+        } else if (tsk.status === 'On Hold') {
+            bgClass = "bg-amber-100 text-amber-800 font-bold";
+        } else if (tsk.status === 'Pending') {
+            bgClass = "bg-gray-100 text-gray-700";
+        }
+        
+        const optionsHtml = taskStatuses.map(s => `<option value="${s}" ${tsk.status === s ? 'selected' : ''}>${s}</option>`).join('');
+        
+        return `
+        <tr class="hover:bg-[#FFFBEB] transition-colors group">
+            <td class="px-md py-4">
+                <div class="flex items-start gap-sm">
+                    <span class="material-symbols-outlined text-outline mt-1">assignment</span>
+                    <div>
+                        <p class="font-body-md text-body-md text-on-surface font-medium">${tsk.description}</p>
+                        <p class="font-body-sm text-body-sm text-on-surface-variant/70">Assignee: <strong>${tsk.assignee}</strong> | ${tsk.category_tag}</p>
+                    </div>
+                </div>
+            </td>
+            <td class="px-md py-4">${prioBadge}</td>
+            <td class="px-md py-4">
+                <select class="px-sm py-1 rounded text-body-sm font-semibold border border-outline-variant outline-none cursor-pointer ${bgClass}" onchange="changeTaskStatus(${tsk.id}, this.value)">
+                    ${optionsHtml}
+                </select>
+            </td>
+            <td class="px-md py-4 text-right">
+                <p class="font-data-mono text-data-mono text-on-surface">${tsk.due_date || 'No due date'}</p>
+            </td>
+        </tr>
+        `;
+    }).join('');
+}
+
+function changeTaskStatus(id, newStatus) {
+    fetch('/api/tasks/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, status: newStatus })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) loadTasks();
+    })
+    .catch(err => console.error(err));
+}
+
+document.getElementById('createTaskForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitTaskBtn');
+    const originalContent = btn.innerHTML;
+    
+    const payload = {
+        description: document.getElementById('task-description').value,
+        priority: document.getElementById('task-priority').value,
+        assignee: document.getElementById('task-assignee').value,
+        due_date: document.getElementById('task-due-date').value,
+        category_tag: document.getElementById('task-category-tag').value
+    };
+    
+    btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Assigning...';
+    btn.disabled = true;
+    
+    fetch('/api/tasks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            btn.innerHTML = '<span class="material-symbols-outlined">check_circle</span> Task Assigned';
+            document.getElementById('createTaskForm').reset();
+            setPriority('Medium');
+            loadTasks();
+            
+            setTimeout(() => {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }, 1500);
+        } else {
+            alert(data.message || "Failed to create task.");
+            btn.innerHTML = originalContent;
+            btn.disabled = false;
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+    });
+});
+
+document.addEventListener('DOMContentLoaded', loadTasks);
+</script>
+</body></html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="en" class="light"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head><body class="bg-background text-on-surface flex min-h-screen">
+<aside class="hidden md:flex flex-col h-full w-sidebar-width bg-inverse-surface border-r border-outline-variant fixed left-0 top-0 z-50">
+<div class="px-gutter py-lg">
+<h1 class="font-headline-md text-headline-md text-primary-fixed">Jstock Pro</h1>
+<p class="font-label-md text-label-md text-secondary-fixed-dim uppercase tracking-wider">Inventory Portal</p>
+</div>
+<nav class="flex-1 flex flex-col gap-base px-sm mt-2">
+<a href="{{ url_for('dashboard') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a href="{{ url_for('ornaments_inventory') }}" class="flex items-center gap-md px-md py-sm bg-primary-container text-on-primary-container border-l-4 border-primary font-bold transition-all duration-200">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">diamond</span>
+<span class="font-label-md text-label-md">Ornaments</span>
+</a>
+<a href="{{ url_for('task_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">assignment</span>
+<span class="font-label-md text-label-md">Task</span>
+</a>
+<a href="{{ url_for('order_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-label-md text-label-md">Order</span>
+</a>
+<a href="{{ url_for('customer_management') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">group</span>
+<span class="font-label-md text-label-md">Customers</span>
+</a>
+<a href="{{ url_for('employee_requests') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-label-md text-label-md">Requests</span>
+</a>
+<a href="{{ url_for('business_status') }}" class="flex items-center gap-md px-md py-sm text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-md text-label-md">Status</span>
+</a>
+</nav>
+<div class="mt-auto px-sm pt-lg border-t border-outline/20">
+<button class="w-full bg-primary-container text-on-primary-container py-md px-lg rounded font-bold hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+<span class="font-label-md text-label-md">Add New Item</span>
+</button>
+<a href="{{ url_for('logout') }}" class="flex items-center mt-lg py-md text-secondary-fixed-dim hover:text-primary-fixed hover:bg-on-secondary-fixed-variant transition-all duration-200">
+<span class="material-symbols-outlined mr-md">logout</span>
+<span class="font-label-md text-label-md">Logout</span>
+</a>
+</div>
+</aside>
+<div class="flex-grow flex flex-col ml-sidebar-width overflow-hidden">
+<!-- Search header input id binding -->
+<header class="sticky top-0 z-40 bg-surface border-b border-outline-variant flex justify-between items-center w-full px-gutter py-md">
+<div class="flex items-center gap-md">
+<h2 class="text-headline-sm font-headline-sm font-bold text-primary">Ornament Catalog</h2>
+</div>
+<div class="flex items-center gap-lg">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input id="ornaments-search-input" type="text" placeholder="Quick search catalog..." class="pl-10 pr-md py-xs bg-surface-container-low border border-outline-variant rounded focus:outline-none focus:border-primary text-body-sm font-body-sm w-64">
+</div>
+<div class="flex gap-md">
+<button class="material-symbols-outlined text-primary p-sm hover:bg-surface-container-low transition-colors rounded">notifications</button>
+<button class="material-symbols-outlined text-primary p-sm hover:bg-surface-container-low transition-colors rounded">account_circle</button>
+</div>
+</div>
+</header>
+<main class="flex-grow overflow-y-auto p-lg custom-scrollbar">
+<!-- Hero Section -->
+<div class="mb-xl flex justify-between items-end">
+<div>
+<h3 class="font-display-lg text-display-lg text-on-background mb-xs">Ornament Catalog</h3>
+<p class="font-body-md text-body-md text-secondary">Manage and track live inventory created from Order Management.</p>
+</div>
+<div class="flex gap-md">
+<button onclick="filterByCategory('All')" class="px-lg py-sm border border-secondary text-secondary rounded flex items-center gap-xs font-label-md text-label-md hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">view_all</span>
+                        Show All
+                    </button>
+</div>
+</div>
+<!-- Category Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-lg mb-xl">
+<!-- 999 Gold Card -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg group hover:border-primary transition-all duration-300">
+<div class="flex justify-between items-start mb-md">
+<div class="bg-primary/10 text-primary p-sm rounded">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">monetization_on</span>
+</div>
+<span class="font-label-md text-label-md bg-green-100 text-green-800 px-sm py-xs rounded">99.9% Purity</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-xs">999 Gold</h4>
+<div class="flex items-baseline gap-xs text-secondary mb-xl">
+<span class="font-display-lg text-[24px] font-bold text-on-surface" id="stat-999-items">0</span>
+<span class="font-label-md text-label-md">Items</span>
+</div>
+<div class="border-t border-outline-variant pt-md flex justify-between items-center">
+<div>
+<p class="font-label-md text-label-md text-outline uppercase tracking-wider">Total Weight</p>
+<p class="font-title-lg text-title-lg text-primary" id="stat-999-weight">0.00 g</p>
+</div>
+<button onclick="filterByCategory('999 Gold')" class="text-primary font-bold font-label-md text-label-md group-hover:translate-x-1 transition-transform flex items-center gap-xs">
+                            View Details
+                            <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- 24K Ornaments -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg group hover:border-primary transition-all duration-300">
+<div class="flex justify-between items-start mb-md">
+<div class="bg-primary/10 text-primary p-sm rounded">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">stars</span>
+</div>
+<span class="font-label-md text-label-md bg-surface-container text-on-surface-variant px-sm py-xs rounded">Investment Grade</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-xs">24K Ornaments</h4>
+<div class="flex items-baseline gap-xs text-secondary mb-xl">
+<span class="font-display-lg text-[24px] font-bold text-on-surface" id="stat-24k-items">0</span>
+<span class="font-label-md text-label-md">Items</span>
+</div>
+<div class="border-t border-outline-variant pt-md flex justify-between items-center">
+<div>
+<p class="font-label-md text-label-md text-outline uppercase tracking-wider">Total Weight</p>
+<p class="font-title-lg text-title-lg text-primary" id="stat-24k-weight">0.00 g</p>
+</div>
+<button onclick="filterByCategory('24K')" class="text-primary font-bold font-label-md text-label-md group-hover:translate-x-1 transition-transform flex items-center gap-xs">
+                            View Details
+                            <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- 22K Ornaments -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg group hover:border-primary transition-all duration-300">
+<div class="flex justify-between items-start mb-md">
+<div class="bg-primary/10 text-primary p-sm rounded">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">auto_awesome</span>
+</div>
+<span class="font-label-md text-label-md bg-primary-container text-on-primary-container px-sm py-xs rounded">High Demand</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-xs">22K Ornaments</h4>
+<div class="flex items-baseline gap-xs text-secondary mb-xl">
+<span class="font-display-lg text-[24px] font-bold text-on-surface" id="stat-22k-items">0</span>
+<span class="font-label-md text-label-md">Items</span>
+</div>
+<div class="border-t border-outline-variant pt-md flex justify-between items-center">
+<div>
+<p class="font-label-md text-label-md text-outline uppercase tracking-wider">Total Weight</p>
+<p class="font-title-lg text-title-lg text-primary" id="stat-22k-weight">0.00 g</p>
+</div>
+<button onclick="filterByCategory('22K')" class="text-primary font-bold font-label-md text-label-md group-hover:translate-x-1 transition-transform flex items-center gap-xs">
+                            View Details
+                            <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- 18K Jewelry -->
+<div class="bg-surface-container-lowest border border-outline-variant p-lg group hover:border-primary transition-all duration-300">
+<div class="flex justify-between items-start mb-md">
+<div class="bg-primary/10 text-primary p-sm rounded">
+<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">palette</span>
+</div>
+<span class="font-label-md text-label-md bg-surface-container text-on-surface-variant px-sm py-xs rounded">Fashion Segment</span>
+</div>
+<h4 class="font-headline-sm text-headline-sm text-on-surface mb-xs">18K Jewelry</h4>
+<div class="flex items-baseline gap-xs text-secondary mb-xl">
+<span class="font-display-lg text-[24px] font-bold text-on-surface" id="stat-18k-items">0</span>
+<span class="font-label-md text-label-md">Items</span>
+</div>
+<div class="border-t border-outline-variant pt-md flex justify-between items-center">
+<div>
+<p class="font-label-md text-label-md text-outline uppercase tracking-wider">Total Weight</p>
+<p class="font-title-lg text-title-lg text-primary" id="stat-18k-weight">0.00 g</p>
+</div>
+<button onclick="filterByCategory('18K')" class="text-primary font-bold font-label-md text-label-md group-hover:translate-x-1 transition-transform flex items-center gap-xs">
+                            View Details
+                            <span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Detailed Inventory Table -->
+<section id="inventory-log" class="bg-surface-container-lowest border border-outline-variant rounded shadow-sm overflow-hidden">
+<div class="px-lg py-md bg-surface-container border-b border-outline-variant flex justify-between items-center">
+<h5 class="font-title-lg text-title-lg text-on-surface" id="table-title">Ornament Log: All Categories</h5>
+<div class="flex items-center gap-md">
+<span class="font-label-md text-label-md text-secondary" id="active-filter-badge">Filter: All</span>
+</div>
+</div>
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container/50 border-b border-outline-variant">
+<th class="px-lg py-md font-label-md text-label-md text-secondary">Order / Item ID</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary">Description</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary">Purity / Karat</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary">Weight (g)</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary">Customer</th>
+<th class="px-lg py-md font-label-md text-label-md text-secondary">Status</th>
+</tr>
+</thead>
+<tbody id="ornaments-tbody" class="divide-y divide-outline-variant">
+<tr><td colspan="6" class="text-center py-lg text-secondary">Loading ornament inventory...</td></tr>
+</tbody>
+</table>
+<div class="px-lg py-md border-t border-outline-variant flex justify-between items-center bg-surface-container-low">
+<p class="font-body-sm text-body-sm text-secondary" id="ornaments-count-text">Showing catalog items</p>
+</div>
+</section>
+</main>
+<!-- Footer Component -->
+<footer class="w-full mt-auto flex justify-between items-center px-gutter py-md bg-surface-container dark:bg-inverse-surface border-t border-outline-variant">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Jstock Systems</span>
+<p class="font-body-sm text-body-sm text-secondary dark:text-secondary-fixed">© 2024 Jstock Ornament Systems. Precision &amp; Value.</p>
+</div>
+<div class="flex gap-lg">
+<a href="#" class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed underline transition-opacity duration-200">Support</a>
+<a href="#" class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed underline transition-opacity duration-200">Privacy Policy</a>
+<a href="#" class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed underline transition-opacity duration-200">Terms of Service</a>
+</div>
+</footer>
+</div>
+
+<script>
+let allOrnamentsItems = [];
+let currentFilter = 'All';
+
+function loadOrnamentsCatalog() {
+    fetch('/api/ornaments')
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) return;
+            
+            // Update stats cards
+            const s = data.stats;
+            document.getElementById('stat-999-items').innerText = s['999 Gold'].items;
+            document.getElementById('stat-999-weight').innerText = formatWeight(s['999 Gold'].weight);
+            
+            document.getElementById('stat-24k-items').innerText = s['24K'].items;
+            document.getElementById('stat-24k-weight').innerText = formatWeight(s['24K'].weight);
+            
+            document.getElementById('stat-22k-items').innerText = s['22K'].items;
+            document.getElementById('stat-22k-weight').innerText = formatWeight(s['22K'].weight);
+            
+            document.getElementById('stat-18k-items').innerText = s['18K'].items;
+            document.getElementById('stat-18k-weight').innerText = formatWeight(s['18K'].weight);
+            
+            allOrnamentsItems = data.items;
+            renderOrnamentsTable();
+        })
+        .catch(err => console.error("Error loading ornaments catalog:", err));
+}
+
+function formatWeight(wt) {
+    if (wt >= 1000) {
+        return (wt / 1000).toFixed(3) + ' kg';
+    }
+    return wt.toFixed(2) + ' g';
+}
+
+function filterByCategory(cat) {
+    currentFilter = cat;
+    document.getElementById('table-title').innerText = `Ornament Log: ${cat === 'All' ? 'All Categories' : cat}`;
+    document.getElementById('active-filter-badge').innerText = `Filter: ${cat}`;
+    renderOrnamentsTable();
+    
+    const inventoryLog = document.getElementById('inventory-log');
+    inventoryLog.scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderOrnamentsTable() {
+    const q = (document.getElementById('ornaments-search-input')?.value || '').toLowerCase();
+    const tbody = document.getElementById('ornaments-tbody');
+    
+    let filtered = allOrnamentsItems;
+    if (currentFilter !== 'All') {
+        filtered = filtered.filter(item => item.purity.includes(currentFilter));
+    }
+    
+    if (q) {
+        filtered = filtered.filter(item => 
+            item.order_id.toLowerCase().includes(q) ||
+            item.category.toLowerCase().includes(q) ||
+            item.item_type.toLowerCase().includes(q) ||
+            item.customer_name.toLowerCase().includes(q) ||
+            item.purity.toLowerCase().includes(q)
+        );
+    }
+    
+    document.getElementById('ornaments-count-text').innerText = `Showing ${filtered.length} catalog item(s)`;
+    
+    if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-xl text-secondary">No ornament items found for this selection.</td></tr>`;
+        return;
+    }
+    
+    const catalogStatuses = ['Processing', 'Ready for Pickup', 'On Hold', 'Reserved', 'Completed'];
+    
+    tbody.innerHTML = filtered.map(item => {
+        const optHtml = catalogStatuses.map(s => `<option value="${s}" ${item.status === s ? 'selected' : ''}>${s}</option>`).join('');
+        let bg = "bg-primary-container/20 text-on-primary-container";
+        if (item.status === 'Completed' || item.status === 'Ready for Pickup') bg = "bg-green-100 text-green-800 font-bold";
+        else if (item.status === 'On Hold') bg = "bg-amber-100 text-amber-800 font-bold";
+
+        return `
+        <tr class="hover:bg-[#FFFBEB] transition-colors cursor-pointer group border-b border-outline-variant">
+            <td class="px-lg py-md font-data-mono text-data-mono text-on-surface font-bold">#${item.order_id}</td>
+            <td class="px-lg py-md font-body-sm text-body-sm text-on-surface">
+                <span class="font-bold text-on-surface">${item.category}</span> - ${item.item_type}
+            </td>
+            <td class="px-lg py-md">
+                <span class="bg-primary-container text-on-primary-container px-sm py-xs rounded-lg font-label-md text-[11px] font-bold">${item.purity}</span>
+            </td>
+            <td class="px-lg py-md font-data-mono text-data-mono text-on-surface font-bold">${parseFloat(item.weight).toFixed(2)}g</td>
+            <td class="px-lg py-md font-body-sm text-body-sm text-on-surface">${item.customer_name}</td>
+            <td class="px-lg py-md">
+                <select class="px-2 py-1 text-body-sm font-semibold rounded border border-outline-variant outline-none cursor-pointer ${bg}" onchange="updateOrnamentStatus(${item.id}, this.value)">
+                    ${optHtml}
+                </select>
+            </td>
+        </tr>
+        `;
+    }).join('');
+}
+
+function updateOrnamentStatus(id, newStatus) {
+    fetch('/api/orders/status', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id, status: newStatus })
+    })
+    .then(res => res.json())
+    .then(data => { if (data.success) loadOrnamentsCatalog(); });
+}
+
+document.getElementById('ornaments-search-input')?.addEventListener('input', renderOrnamentsTable);
+
+document.addEventListener('DOMContentLoaded', loadOrnamentsCatalog);
+</script>
+</body></html>
+>
